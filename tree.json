@@ -1,0 +1,127 @@
+{
+  "titre": "Aide pour les comptes en ligne",
+  "start": "q1_type_probleme",
+
+  "nodes": {
+
+    "q1_type_probleme": {
+      "type": "question",
+      "titre": "Quel est le problème ?",
+      "texte": "Choisissez la situation qui correspond le mieux.",
+      "choix": [
+        { "label": "Impossible de se connecter", "suivant": "q2_raison_connexion" },
+        { "label": "Le compte semble avoir été piraté", "suivant": "q3_signes_piratage" },
+        { "label": "Un email ou SMS suspect a été reçu", "suivant": "c_email_suspect" },
+        { "label": "Envie de fermer un compte", "suivant": "q4_suppression" }
+      ]
+    },
+
+    "q2_raison_connexion": {
+      "type": "question",
+      "titre": "Pourquoi la connexion échoue-t-elle ?",
+      "texte": "",
+      "choix": [
+        { "label": "Le mot de passe est oublié", "suivant": "q2b_acces_recuperation" },
+        { "label": "Le compte indique \"suspendu\" ou \"désactivé\"", "suivant": "c_compte_suspendu" },
+        { "label": "Un code de vérification n'arrive jamais", "suivant": "c_code_non_recu" }
+      ]
+    },
+
+    "q2b_acces_recuperation": {
+      "type": "question",
+      "titre": "A-t-elle encore accès à son email ou son téléphone de secours ?",
+      "texte": "C'est ce que le service va utiliser pour vérifier son identité.",
+      "choix": [
+        { "label": "Oui, elle y a accès", "suivant": "c_reinit_mdp_simple" },
+        { "label": "Non, elle n'y a plus accès", "suivant": "c_recuperation_sans_acces" }
+      ]
+    },
+
+    "q3_signes_piratage": {
+      "type": "question",
+      "titre": "Quels signes avez-vous remarqués ?",
+      "texte": "",
+      "choix": [
+        { "label": "Des connexions ou appareils inconnus", "suivant": "c_deconnecter_appareils" },
+        { "label": "Le mot de passe a changé sans son accord", "suivant": "c_recuperation_sans_acces" },
+        { "label": "Des messages envoyés qu'elle n'a pas écrits", "suivant": "c_alerter_contacts" }
+      ]
+    },
+
+    "q4_suppression": {
+      "type": "question",
+      "titre": "Que voulez-vous faire du compte ?",
+      "texte": "",
+      "choix": [
+        { "label": "Le supprimer définitivement", "suivant": "c_suppression_definitive" },
+        { "label": "Juste s'en déconnecter partout", "suivant": "c_deconnecter_appareils" }
+      ]
+    },
+
+    "c_reinit_mdp_simple": {
+      "type": "conclusion",
+      "titre": "Réinitialiser le mot de passe",
+      "texte": "Sur la page de connexion, cliquez sur \"Mot de passe oublié\". Un lien ou un code sera envoyé sur son email ou son téléphone de secours. Il suffit de l'ouvrir et de choisir un nouveau mot de passe. Conseil : proposez-lui un gestionnaire de mots de passe pour ne plus avoir ce problème.",
+      "liens": [
+        { "label": "Aide Google - mot de passe oublié", "url": "https://support.google.com/accounts/answer/7682439" }
+      ]
+    },
+
+    "c_recuperation_sans_acces": {
+      "type": "conclusion",
+      "titre": "Procédure de récupération avancée",
+      "texte": "Sans accès à l'email ou au téléphone de secours, il faut passer par le formulaire de récupération de compte du service, qui demandera des informations pour prouver son identité (ancien mot de passe, date de création, contacts fréquents...). C'est plus long, comptez parfois plusieurs jours de réponse. Restez avec elle pour remplir le formulaire, certaines réponses demandent de la mémoire précise.",
+      "liens": [
+        { "label": "Formulaire Google", "url": "https://accounts.google.com/signin/recovery" },
+        { "label": "Formulaire Facebook", "url": "https://www.facebook.com/help/contact/183000765122339" }
+      ]
+    },
+
+    "c_compte_suspendu": {
+      "type": "conclusion",
+      "titre": "Compte suspendu ou désactivé",
+      "texte": "Le service a probablement détecté une activité jugée anormale. Il n'y a rien à réparer soi-même : il faut suivre le lien de contestation proposé sur la page d'erreur et attendre la réponse du service. Vérifiez qu'aucun autre email n'explique la raison de la suspension.",
+      "liens": []
+    },
+
+    "c_code_non_recu": {
+      "type": "conclusion",
+      "titre": "Le code de vérification n'arrive pas",
+      "texte": "Vérifiez d'abord le dossier spam/courrier indésirable, et que le numéro de téléphone enregistré est toujours le bon. Si le SMS ne vient pas après plusieurs minutes, utilisez l'option \"essayer une autre méthode\" si elle est proposée, ou attendez 10 minutes avant de redemander un envoi.",
+      "liens": []
+    },
+
+    "c_deconnecter_appareils": {
+      "type": "conclusion",
+      "titre": "Déconnecter les appareils inconnus",
+      "texte": "Dans les paramètres de sécurité du compte, il existe une page \"appareils connectés\" ou \"sessions actives\". Elle permet de voir tous les appareils connectés et de les déconnecter en un clic. Faites-le, puis changez le mot de passe immédiatement après pour empêcher une nouvelle connexion.",
+      "liens": [
+        { "label": "Google - appareils connectés", "url": "https://myaccount.google.com/device-activity" }
+      ]
+    },
+
+    "c_alerter_contacts": {
+      "type": "conclusion",
+      "titre": "Prévenir les contacts et sécuriser le compte",
+      "texte": "Changez le mot de passe en priorité, puis prévenez rapidement les proches par un autre moyen (téléphone, SMS) que les messages reçus récemment ne viennent pas d'elle. Vérifiez aussi les paramètres de transfert automatique des emails, une technique fréquente pour continuer à lire les messages après un piratage.",
+      "liens": []
+    },
+
+    "c_suppression_definitive": {
+      "type": "conclusion",
+      "titre": "Supprimer définitivement le compte",
+      "texte": "Cette action est en général irréversible : photos, messages et documents associés au compte sont perdus. Avant de continuer, faites d'abord une sauvegarde de ce qui doit être gardé. La suppression se trouve dans les paramètres du compte, section \"confidentialité\" ou \"données personnelles\".",
+      "liens": [
+        { "label": "Google - supprimer un compte", "url": "https://myaccount.google.com/deleteaccount" }
+      ]
+    },
+
+    "c_email_suspect": {
+      "type": "conclusion",
+      "titre": "Ne rien cliquer dans le message",
+      "texte": "Ne cliquez sur aucun lien et n'ouvrez aucune pièce jointe. Vérifiez l'adresse exacte de l'expéditeur : les imitations utilisent souvent un nom affiché correct mais une adresse email différente du service officiel. En cas de doute, allez directement sur le site du service en tapant l'adresse vous-même, plutôt que via le lien reçu.",
+      "liens": []
+    }
+
+  }
+}
