@@ -121,16 +121,7 @@ puis ouvrez `http://localhost:8000`.
 
 ## Publier sur GitHub Pages (gratuit)
 
-1. Créez un dépôt sur [github.com](https://github.com).
-2. Mettez-y en ligne **tous** les fichiers et dossiers du projet
-   (`index.html`, `style.css`, `script.js`, `data/`, `images/`) à la racine.
-3. Dans le dépôt : **Settings => Pages**, choisissez la branche `main`
-   (dossier `/ root`), puis **Save**.
-4. Au bout d'une ou deux minutes, GitHub affiche l'adresse de la page, du type
-   `https://votre-nom-utilisateur.github.io/nom-du-depot/`.
-
-Chaque arbre a aussi sa propre adresse directe, par exemple
-`https://…github.io/nom-du-depot/?arbre=comptes-en-ligne`.
+Les sources contiennent un workflow github pour que le déploiement vers le Github Pages du repo soit réalisé à chaque push sur la branche `main`.
 
 ## Comportement de la page
 
