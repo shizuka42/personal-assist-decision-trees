@@ -111,7 +111,7 @@ Les deux types de blocs acceptent, en option, une liste `"images"` et une liste
 
 Ouvrir directement `index.html` en double-cliquant ne fonctionnera pas (le
 navigateur bloque la lecture des fichiers JSON en local). Lancez plutôt, depuis
-ce dossier :
+le dossier `src` :
 
 ```
 python -m http.server

@@ -1,11 +1,11 @@
 {
   "json.schemas": [
     {
-      "fileMatch": ["/data/index.json"],
+      "fileMatch": ["/src/data/index.json"],
       "url": "./schemas/index.schema.json"
     },
     {
-      "fileMatch": ["/data/*.json", "!/data/index.json"],
+      "fileMatch": ["/src/data/*.json", "!/src/data/index.json"],
       "url": "./schemas/tree.schema.json"
     }
   ]
