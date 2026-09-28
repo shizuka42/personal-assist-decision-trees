@@ -1,5 +1,6 @@
 {
-  "titre": "Aide pour les comptes en ligne",
+  "titre": "Mes comptes utilisateur en ligne",
+  "description": "Supprimer au mieux mes comptes utilisateur ou mieux les sécuriser.",
   "start": "q1_type_probleme",
 
   "nodes": {
@@ -13,6 +14,9 @@
         { "label": "Le compte semble avoir été piraté", "suivant": "q3_signes_piratage" },
         { "label": "Un email ou SMS suspect a été reçu", "suivant": "c_email_suspect" },
         { "label": "Envie de fermer un compte", "suivant": "q4_suppression" }
+      ],
+      "images": [
+        { "url": "https://cdn.pixabay.com/photo/2025/05/18/14/12/fairy-9607376_1280.jpg", "label": "Une image en ligne" }
       ]
     },
 

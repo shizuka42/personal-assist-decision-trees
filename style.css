@@ -234,3 +234,38 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .choice-btn { transition: none; }
 }
+
+/* ------------------------------------------------------------
+   Accueil multi-arbres, images, liens externes
+   ------------------------------------------------------------ */
+[hidden] { display: none !important; }
+
+.home-link {
+  display: inline-block;
+  margin-bottom: 14px;
+  font-size: 0.86rem;
+  color: var(--color-ink-soft);
+  text-decoration: none;
+}
+.home-link:hover,
+.home-link:focus-visible { color: var(--color-accent-ink); text-decoration: underline; }
+
+.tree-link { display: block; text-decoration: none; }
+.tree-link-title { display: block; font-weight: 600; }
+.tree-link-desc { display: block; margin-top: 4px; font-size: 0.9rem; color: var(--color-ink-soft); }
+
+.images, .links { margin: 22px 0 26px; }
+.images { display: flex; flex-direction: column; gap: 16px; }
+
+.image-item { margin: 0; }
+.image-link { display: block; cursor: zoom-in; }
+.image-item img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--color-line);
+  border-radius: 10px;
+}
+.image-item figcaption { margin-top: 6px; font-size: 0.86rem; color: var(--color-ink-soft); }
+
+.link-btn::after { content: " ↗"; }
