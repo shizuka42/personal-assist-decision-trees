@@ -364,6 +364,12 @@
           "label": "J'ai un doute.",
           "suivant": "c_need_advice"
         }
+      ],
+      "ressources": [
+        {
+          "label": "Contenu de l'email à compléter avant d'envoyer",
+          "fichier": "rgpd_delete_email_template.txt"
+        }
       ]
     },
     "c_deleted": {
