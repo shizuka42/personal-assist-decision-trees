@@ -1,0 +1,143 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Arbre de décision",
+  "description": "Un arbre de décision pour personal-assist-decision-trees.",
+  "type": "object",
+  "required": ["start", "nodes"],
+  "anyOf": [{ "required": ["title"] }, { "required": ["titre"] }],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "title": {
+      "type": "string",
+      "description": "Titre affiché sur la page d'accueil et en haut de l'arbre."
+    },
+    "titre": {
+      "type": "string",
+      "description": "Équivalent français de \"title\" (l'un des deux suffit)."
+    },
+    "description": {
+      "type": "string",
+      "description": "Courte phrase affichée sous le titre sur la page d'accueil."
+    },
+    "start": {
+      "type": "string",
+      "description": "Identifiant du premier bloc (doit exister dans \"nodes\")."
+    },
+    "nodes": {
+      "type": "object",
+      "description": "Les blocs de l'arbre, indexés par leur identifiant unique.",
+      "additionalProperties": { "$ref": "#/definitions/node" }
+    }
+  },
+  "definitions": {
+    "node": {
+      "type": "object",
+      "required": ["type", "titre"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": ["question", "conclusion"],
+          "description": "\"question\" : propose des choix. \"conclusion\" : fin du parcours."
+        },
+        "titre": { "type": "string", "description": "Titre affiché en gros." },
+        "texte": {
+          "type": "string",
+          "description": "Texte explicatif (optionnel, peut être vide). Les retours à la ligne sont conservés."
+        },
+        "choix": {
+          "type": "array",
+          "minItems": 1,
+          "description": "Boutons proposés (questions uniquement).",
+          "items": { "$ref": "#/definitions/choix" }
+        },
+        "images": {
+          "type": "array",
+          "description": "Images affichées avant les liens.",
+          "items": { "$ref": "#/definitions/image" }
+        },
+        "liens": {
+          "type": "array",
+          "description": "Boutons-liens (ouverts dans un nouvel onglet).",
+          "items": { "$ref": "#/definitions/lien" }
+        }
+      },
+      "if": {
+        "required": ["type"],
+        "properties": { "type": { "const": "question" } }
+      },
+      "then": { "required": ["choix"] },
+      "else": {
+        "not": { "required": ["choix"] },
+        "errorMessage": "Une conclusion n'a pas de \"choix\"."
+      },
+      "defaultSnippets": [
+        {
+          "label": "Question",
+          "body": {
+            "type": "question",
+            "titre": "${1:Titre}",
+            "texte": "${2}",
+            "choix": [
+              { "label": "${3:Premier choix}", "suivant": "${4:id_suivant}" },
+              { "label": "${5:Deuxième choix}", "suivant": "${6:id_suivant}" }
+            ]
+          }
+        },
+        {
+          "label": "Conclusion",
+          "body": {
+            "type": "conclusion",
+            "titre": "${1:Titre}",
+            "texte": "${2:Texte final}"
+          }
+        }
+      ]
+    },
+    "choix": {
+      "type": "object",
+      "required": ["label", "suivant"],
+      "additionalProperties": false,
+      "properties": {
+        "label": { "type": "string", "description": "Texte du bouton." },
+        "suivant": {
+          "type": "string",
+          "description": "Identifiant du bloc suivant (doit exister dans \"nodes\")."
+        }
+      },
+      "defaultSnippets": [
+        { "label": "Choix", "body": { "label": "${1}", "suivant": "${2}" } }
+      ]
+    },
+    "image": {
+      "type": "object",
+      "required": ["url"],
+      "additionalProperties": false,
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "Chemin (data/images/x.png) ou adresse https://..."
+        },
+        "label": {
+          "type": "string",
+          "description": "Légende et texte alternatif (optionnel)."
+        }
+      },
+      "defaultSnippets": [
+        { "label": "Image", "body": { "url": "${1:data/images/}", "label": "${2}" } }
+      ]
+    },
+    "lien": {
+      "type": "object",
+      "required": ["label", "url"],
+      "additionalProperties": false,
+      "properties": {
+        "label": { "type": "string", "description": "Texte du bouton-lien." },
+        "url": { "type": "string", "description": "Adresse https://..." }
+      },
+      "defaultSnippets": [
+        { "label": "Lien", "body": { "label": "${1}", "url": "https://${2}" } }
+      ]
+    }
+  }
+}

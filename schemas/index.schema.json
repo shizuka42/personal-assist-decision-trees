@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Index des arbres",
+  "description": "Liste des arbres proposés sur la page d'accueil.",
+  "type": "object",
+  "required": ["trees"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "title": { "type": "string", "description": "Titre de la page d'accueil." },
+    "description": { "type": "string", "description": "Phrase d'introduction (optionnelle)." },
+    "trees": {
+      "type": "array",
+      "description": "Noms des fichiers de data/ (sans .json), dans l'ordre d'affichage.",
+      "items": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$" }
+    }
+  }
+}
