@@ -3,16 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="app-version" content="__VERSION__">
 <title>Arbres de décision</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=__VERSION__">
 </head>
 <body>
   <div class="page">
     <header class="app-header">
-      <a class="home-link" id="home-link" href="./" hidden>Tous les arbres</a>
+      <a class="home-link" id="home-link" href="./" hidden>🏠​ Retour à l'accueil</a>
       <p class="app-title" id="app-title">Chargement…</p>
       <nav class="trail" id="trail" aria-label="Parcours"></nav>
     </header>
@@ -20,6 +21,6 @@
     <main class="card" id="card"></main>
   </div>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=__VERSION__"></script>
 </body>
 </html>

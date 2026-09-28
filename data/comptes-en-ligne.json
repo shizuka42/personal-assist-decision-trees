@@ -16,7 +16,8 @@
         { "label": "Envie de fermer un compte", "suivant": "q4_suppression" }
       ],
       "images": [
-        { "url": "https://cdn.pixabay.com/photo/2025/05/18/14/12/fairy-9607376_1280.jpg", "label": "Une image en ligne" }
+        { "url": "https://cdn.pixabay.com/animation/2024/12/06/20/25/20-25-19-625_512.gif", "label": "Une image en ligne" },
+        { "url": "data/images/gabrieleromanoy-hills-10091311_640.png", "label": "Une image dans les sources"}
       ]
     },
 

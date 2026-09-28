@@ -1,6 +1,7 @@
 (function () {
   "use strict";
 
+  const APP_VERSION = document.querySelector('meta[name="app-version"]')?.content || "";
   const DATA_DIR = "data/";
 
   const els = {
@@ -240,6 +241,12 @@
     }
   }
 
+  function versioned(url) {
+    // pas de version en local, ni pour les images externes (https://...)
+    if (!APP_VERSION || /^(https?:)?\/\//.test(url)) return url;
+    return url + (url.includes("?") ? "&" : "?") + "v=" + APP_VERSION;
+  }
+
   function buildImage(img) {
     const fig = el("figure", "image-item");
     // Un clic sur l'image l'ouvre en grand dans un nouvel onglet
@@ -247,7 +254,7 @@
     a.className = "image-link";
 
     const image = document.createElement("img");
-    image.src = img.url;
+    image.src = versioned(img.url);
     image.alt = img.label || "";
     image.loading = "lazy";
     image.addEventListener("error", () => {
