@@ -29,7 +29,7 @@
     "account_new_password": {
       "type": "question",
       "titre": "Mes identifiants ne me permettent plus de me connecter. Je demande un nouveau mot de passe.",
-      "texte": "La plupart des sites proposent de créer un nouveau mot de passe via 'Mot de passe perdu', 'Authentification sans mot de passe', etc. Si le process du site te demande de choisir tout de suite un nouveau mot de passe, utilise un générateur de mot de passe pour définir ton nouveau mot de passe.",
+      "texte": "La plupart des sites proposent de créer un nouveau mot de passe via 'Mot de passe perdu', 'Authentification sans mot de passe', etc. Si le process du site te demande de choisir tout de suite un nouveau mot de passe, utilise un générateur de mot de passe pour définir ton nouveau mot de passe. Il est possible que le site ait supprimé/désactivé ton compte après une longue période d'inactivité et donc que la procédure de changement de mot de passe ne fonctionne pas.",
       "choix": [
         {
           "label": "J'ai réussi à me connecter via le 'Mot de passe perdu' ou 'Authentification sans mot de passe', etc",
@@ -391,10 +391,10 @@
     "hibp_register": {
       "type": "question",
       "titre": "Etre averti si mon adresse email fait partie d'une fuite de données.",
-      "texte": "Lors de fuite de données, certains bons acteurs regroupent les données volées pour avertir les personnes concernées. Mais pour être averti, il faut inscrire son adresse email (uniquement). Si cette adresse fait partie d'un vol de données qu'ils analysent, tu recevras un mail pour t'avertir.",
+      "texte": "Lors de fuite de données, certains bons acteurs regroupent les données volées pour avertir les personnes concernées. Mais pour être averti, il faut inscrire son adresse email (uniquement). Si cette adresse fait partie d'un vol de données qu'ils analysent, tu recevras un mail pour t'avertir. Après inscription sur le site, il faut activer l'inscription via le lien reçu par email de la part de \"Have I Been Pwned\".",
       "choix": [
         {
-          "label": "J'ai inscrit l'adresse email de ce compte utilisateur sur haveibeenpwned.",
+          "label": "J'ai inscrit l'adresse email de ce compte utilisateur sur haveibeenpwned et activer l'inscription.",
           "suivant": "c_secured"
         }
       ],
@@ -422,6 +422,25 @@
       "choix": [
         {
           "label": "Ok j'ai récupéré les informations.",
+          "suivant": "account_did_mfa"
+        }
+      ]
+    },
+    "account_did_mfa":{
+      "type": "question",
+      "titre": "Est-ce que la double authentification (ou 'authentification multifacteur' ou 2FA ou MFA) est activée sur ce compte via une application qui génère un code (pas par sms ou email) ?",
+      "texte": "Si la double authentification est activée via une application qui génère un code (pas par sms ou email), il faudra supprimer cette entrée dans l'application correspondante dans une étape suivante. Vérifie dans les paramètres de sécurité de ton compte si cette option est activée, mais ne la désactive pas.",
+      "choix": [
+        {
+          "label": "Oui, la 2FA est activée via une application qui génère un code.",
+          "suivant": "account_delete_from_ui"
+        },
+        {
+          "label": "Oui, la 2FA est activée mais via sms, email ou appel téléphonique.",
+          "suivant": "account_delete_from_ui"
+        },
+        {
+          "label": "Non, la 2FA n'est pas activée.",
           "suivant": "account_delete_from_ui"
         }
       ]
@@ -448,11 +467,26 @@
       "choix": [
         {
           "label": "Ok j'ai trouvé les infos.",
-          "suivant": "delete_rgpd_find_dpo"
+          "suivant": "account_without_access_did_mfa"
         },
         {
           "label": "Je ne trouve pas ces informations.",
           "suivant": "c_need_advice"
+        }
+      ]
+    },
+    "account_without_access_did_mfa":{
+      "type": "question",
+      "titre": "Est-ce que votre application de génération de code pour double authentification contient une entrée pour ce site et ce compte ?",
+      "texte": "Si la double authentification était activée via une application qui génère un code (pas par sms ou email) pour ce site alors que tu n'as plus accès à ce compte, cette entrée n'est déjà plus utile.",
+      "choix": [
+        {
+          "label": "Oui, mon application de génération de code 2FA contient une entrée pour ce site et ce compte. Je supprime cette entrée.",
+          "suivant": "delete_rgpd_find_dpo"
+        },
+        {
+          "label": "Non, mon application de génération de code 2FA ne contient pas d'entrée pour ce site et ce compte.",
+          "suivant": "delete_rgpd_find_dpo"
         }
       ]
     },
@@ -487,8 +521,12 @@
       ],
       "ressources": [
         {
-          "label": "Contenu de l'email à compléter avant d'envoyer",
-          "fichier": "rgpd_delete_email_template.txt"
+          "label": "Contenu de l'email à compléter avant d'envoyer (français)",
+          "fichier": "rgpd_delete_email_template_FR.txt"
+        },
+        {
+          "label": "Contenu de l'email à compléter avant d'envoyer (anglais)",
+          "fichier": "rgpd_delete_email_template_EN.txt"
         }
       ]
     },
