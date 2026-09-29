@@ -1,12 +1,33 @@
 {
   "titre": "Sécuriser mes comptes utilisateur en ligne",
   "description": "Supprimer mes comptes utilisateur ou mieux les sécuriser.",
-  "start": "start",
+  "start": "intro",
   "nodes": {
+    "intro":{
+      "type": "question",
+      "titre": "Introduction",
+      "texte": "Face aux ventes/fuites de données personnelles, il est important de réduire le volume des informations à voler en supprimant les comptes inutiles et en sécurisant mieux les comptes utiles. Il faut faire cette réflexion compte par compte. Parcours ta liste d'identifiants de comptes utilisateur et identifie un compte à analyser.",
+      "choix": [
+        {
+          "label": "Ok, j'ai identifié un compte.",
+          "suivant": "start"
+        },
+        {
+          "label": "Je n'ai pas le temps. Je reviendrais plus tard.",
+          "suivant": "c_u_next_time"
+        }
+      ],
+      "images": [
+        {
+          "label": "",
+          "url": "data/images/geralt-security-4887761_640.jpg"
+        }
+      ]
+    },
     "start": {
       "type": "question",
-      "titre": "Identifier un compte à analyser",
-      "texte": "Face aux ventes/fuites de données personnelles, il est important de réduire les informations à voler en supprimant les comptes inutiles et en sécurisant mieux les comptes utiles. Il faut faire une réflexion compte par compte. Parcours ta liste d'identifiants de comptes utilisateur et identifies un compte à analyser :",
+      "titre": "As-tu accès au site internet lié à ce compte ?",
+      "texte": "On garde parfois des traces de compte utilisateur que l'on n'a pas utilisé depuis longtemps. Le site internet peut avoir disparu depuis, ou ton compte peut avoir été désactivé après une période d'inactivité.",
       "choix": [
         {
           "label": "Le site internet en question n'existe plus.",
@@ -113,7 +134,7 @@
     "ecommerce_need": {
       "type": "question",
       "titre": "Est-ce que tu as effectué une commande sur ce site dans les 6 derniers mois ?",
-      "texte": "Il est utile de conserver son compte client sur un site de e-commerce si tu y as effectué des commandes récentes, afin de faciliter le suivi de tes achats et la gestion de tes retours. Et cela peut aussi signifier que tu commandes souvent sur ce site.",
+      "texte": "Il est utile de conserver son compte client sur un site de e-commerce si tu y as effectué des commandes récentes, afin de faciliter le suivi de tes achats et la gestion de tes retours. Et cela peut aussi signifier que tu commandes souvent sur ce site et qu'il est donc pratique de garder ce compte.",
       "choix": [
         {
           "label": "Oui, j'ai effectué une commande sur ce site dans les 6 derniers mois.",
@@ -534,6 +555,11 @@
       "type": "conclusion",
       "titre": "Compte supprimé",
       "texte": "Bravo, ce compte utilisateur est à présent inactif et les données personnelles seront bientôt supprimées au mieux. Tu recevras probablement un email de suivi/confirmation pour la suppression des données dans les jours à venir."
+    },
+    "c_u_next_time":{
+      "type": "conclusion",
+      "titre": "A bientôt",
+      "texte": "Pense à revenir plus tard pour mieux gérer tes données personnelles qui trainent sur internet."
     }
   }
 }
