@@ -15,6 +15,7 @@ script.js             => la logique
 data/index.json       => la liste des arbres proposés sur la page d'accueil
 data/<nom>.json       => un fichier par arbre (LES FICHIERS À MODIFIER)
 data/images/               => vos images (dossier à créer, nom libre)
+data/resources/            => vos fichiers à télécharger (txt, pdf, …)
 ```
 
 ## Ajouter un arbre
@@ -95,6 +96,27 @@ Les deux types de blocs acceptent, en option, une liste `"images"` et une liste
 - Un clic sur une image l'ouvre en grand dans un nouvel onglet.
 - **Tous les liens s'ouvrent dans un nouvel onglet**, sans exception.
 - Les deux listes peuvent être omises ou laissées à `[]`.
+
+### Ressources à télécharger (questions ET conclusions)
+
+Les deux types de blocs acceptent aussi, en option, une liste `"ressources"` :
+des boutons qui téléchargent un fichier placé dans `data/resources/`.
+
+```json
+"ressources": [
+  { "label": "Guide de récupération de compte", "fichier": "guide-recuperation.txt" },
+  { "label": "Modèle de courriel", "fichier": "modele-email.txt" }
+]
+```
+
+- `"fichier"` est le nom du fichier dans `data/resources/` (pas besoin d'écrire
+  le chemin). Tous les formats sont possibles (txt, pdf, docx, …).
+- `"label"` est le texte du bouton (le nom du fichier est utilisé s'il est omis).
+- Les boutons s'affichent après les images et les liens.
+- **Exception à la règle des nouveaux onglets** : un téléchargement ne s'ouvre pas
+  dans un onglet, le navigateur enregistre directement le fichier.
+- Les noms contenant `..` ou un chemin absolu sont refusés.
+- La liste peut être omise ou laissée à `[]`.
 
 ### Règles à respecter
 

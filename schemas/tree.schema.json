@@ -60,6 +60,11 @@
           "type": "array",
           "description": "Boutons-liens (ouverts dans un nouvel onglet).",
           "items": { "$ref": "#/definitions/lien" }
+        },
+        "ressources": {
+          "type": "array",
+          "description": "Fichiers à télécharger, situés dans data/resources/.",
+          "items": { "$ref": "#/definitions/ressource" }
         }
       },
       "if": {
@@ -125,6 +130,21 @@
       },
       "defaultSnippets": [
         { "label": "Image", "body": { "url": "${1:data/images/}", "label": "${2}" } }
+      ]
+    },
+    "ressource": {
+      "type": "object",
+      "required": ["label", "fichier"],
+      "additionalProperties": false,
+      "properties": {
+        "label": { "type": "string", "description": "Texte du bouton de téléchargement." },
+        "fichier": {
+          "type": "string",
+          "description": "Nom du fichier dans data/resources/ (ex. guide.txt)."
+        }
+      },
+      "defaultSnippets": [
+        { "label": "Ressource", "body": { "label": "${1}", "fichier": "${2:fichier.txt}" } }
       ]
     },
     "lien": {

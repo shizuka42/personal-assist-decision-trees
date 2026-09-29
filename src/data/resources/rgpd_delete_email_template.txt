@@ -1,0 +1,27 @@
+Objet : Demande de clôture de compte et de suppression définitive de mes données personnelles (RGPD)
+
+Madame, Monsieur,
+
+Par la présente, je vous informe de ma décision de clôturer définitivement mon compte utilisateur, même s’il est actuellement désactivé, associé aux informations suivantes :
+ - Nom / Prénom : [Votre Nom et Prénom]
+ - Adresse email du compte : [Votre adresse email]
+ - Identifiant client / Numéro de compte : [Votre numéro client]
+ 
+Conformément à l'article 17 du Règlement Général sur la Protection des Données (RGPD), je demande l'effacement définitif et intégral de toutes les données à caractère personnel me concernant, incluant notamment :
+ - Mes informations de profil et coordonnées,
+ - Mon historique d'achats, de commandes et de facturation (sous réserve de vos obligations légales de conservation),
+ - Mes données de navigation, de connexion et de géolocalisation.
+
+Par ailleurs, sur le fondement des articles 7 et 21 du RGPD, je révoque tout consentement préalablement accordé et m'oppose fermement à tout traitement futur de mes données. J'exige notamment :
+ - L'arrêt immédiat de l'utilisation de mes données à des fins de prospection commerciale, de profilage ou de statistiques,
+ - L'interdiction stricte de tout transfert ou vente de mes données à des tiers ou partenaires commerciaux.
+
+Si certaines de mes données (telles que les factures) doivent être conservées pour répondre à une obligation légale ou fiscale, je vous demande, conformément à l'article 18 du RGPD, de limiter leur traitement : elles devront être verrouillées, archivées de manière sécurisée et ne plus être utilisées pour aucun autre usage.
+En application de l'article 12.3 du RGPD, vous disposez d'un délai maximal d'un mois à compter de la réception de ce courriel pour répondre à ma demande et me confirmer la destruction de mes données.
+À défaut de réponse ou en cas de refus injustifié, je me réserve le droit de porter plainte auprès de la CNIL.
+
+Je vous remercie de me confirmer la bonne prise en compte de ma demande par retour de mail.
+
+Veuillez agréer, Madame, Monsieur, l'expression de mes salutations distinguées.
+
+[Votre Prénom] [Votre Nom]

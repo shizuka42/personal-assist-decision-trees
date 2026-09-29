@@ -174,14 +174,16 @@ body {
   white-space: pre-line;
 }
 
-.links {
+.links,
+.resources {
   display: flex;
   flex-direction: column;
   gap: 8px;
   margin-top: 22px;
 }
 
-.link-btn {
+.link-btn,
+.resource-btn {
   display: block;
   text-decoration: none;
   padding: 13px 16px;
@@ -192,7 +194,8 @@ body {
   font-size: 0.95rem;
   font-weight: 600;
 }
-.link-btn:hover { border-color: var(--color-accent); }
+.link-btn:hover,
+.resource-btn:hover { border-color: var(--color-accent); }
 
 .actions-row {
   display: flex;
@@ -254,7 +257,7 @@ body {
 .tree-link-title { display: block; font-weight: 600; }
 .tree-link-desc { display: block; margin-top: 4px; font-size: 0.9rem; color: var(--color-ink-soft); }
 
-.images, .links { margin: 22px 0 26px; }
+.images, .links, .resources { margin: 22px 0 26px; }
 .images { display: flex; flex-direction: column; gap: 16px; }
 
 .image-item { margin: 0; }
@@ -269,3 +272,4 @@ body {
 .image-item figcaption { margin-top: 6px; font-size: 0.86rem; color: var(--color-ink-soft); }
 
 .link-btn::after { content: " ↗"; }
+.resource-btn::before { content: "⬇ "; }

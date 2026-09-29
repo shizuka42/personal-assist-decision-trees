@@ -3,6 +3,7 @@
 
   const APP_VERSION = document.querySelector('meta[name="app-version"]')?.content || "";
   const DATA_DIR = "data/";
+  const RESOURCES_DIR = DATA_DIR + "resources/";
 
   const els = {
     home: document.getElementById("home-link"),
@@ -222,7 +223,8 @@
     els.card.appendChild(actions);
   }
 
-  // Images ("images") puis liens ("liens"), pour les questions comme pour les conclusions.
+  // Images ("images"), liens ("liens") puis ressources à télécharger ("ressources"),
+  // pour les questions comme pour les conclusions.
   function appendImagesAndLinks(node) {
     if (node.images?.length) {
       const box = el("div", "images");
@@ -239,6 +241,34 @@
       });
       els.card.appendChild(box);
     }
+    if (node.ressources?.length) {
+      const box = el("div", "resources");
+      node.ressources.forEach((res) => {
+        const btn = buildResource(res);
+        if (btn) box.appendChild(btn);
+      });
+      if (box.children.length) els.card.appendChild(box);
+    }
+  }
+
+  // Bouton de téléchargement d'un fichier de data/resources/.
+  // Pas de target="_blank" : l'attribut "download" déclenche directement le
+  // téléchargement, sans ouvrir d'onglet.
+  function buildResource(res) {
+    const file = res?.fichier;
+    // On refuse les noms vides et toute tentative de sortir du dossier (../, chemins absolus)
+    if (!file || /(^|[\\/])\.\.([\\/]|$)/.test(file) || /^([\\/]|[a-z]+:)/i.test(file)) {
+      console.warn("Ressource ignorée (nom de fichier invalide) :", file);
+      return null;
+    }
+    const name = res.label || file;
+    const a = document.createElement("a");
+    a.href = versioned(RESOURCES_DIR + encodeURI(file));
+    a.setAttribute("download", file.split("/").pop());
+    a.className = "resource-btn";
+    a.textContent = name;
+    a.setAttribute("aria-label", name + " (téléchargement du fichier " + file + ")");
+    return a;
   }
 
   function versioned(url) {
