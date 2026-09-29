@@ -273,3 +273,11 @@ body {
 
 .link-btn::after { content: " ↗"; }
 .resource-btn::before { content: "⬇ "; }
+
+/* ------------------------------------------------------------
+   Pied de page
+   ------------------------------------------------------------ */
+.footer {
+  color: grey;
+  font-size: 0.7rem;
+}
