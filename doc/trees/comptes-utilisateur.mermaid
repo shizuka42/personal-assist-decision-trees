@@ -4,7 +4,8 @@ config:
   layout: elk
 ---
 flowchart TD
-    start["Identifier compte à analyser"]
+    intro["Identifier compte à analyser"]
+    start["Accès au site internet ?"]
     account_new_password["Demander nouveau mot de passe"]
     account_need["Besoin de ce compte ?"]
     type_compte["Type de compte ?"]
@@ -28,14 +29,19 @@ flowchart TD
     mfa_enable["Activer la 2FA par appli"]
     hibp_register["Inscrire l'email sur HIBP"]
     account_get_infos["Récupérer infos du compte"]
+    account_did_mfa["2FA par appli activée ?"]
     account_delete_from_ui["Suppression possible depuis le site ?"]
     account_find_info_without_access["Chercher infos sans accès"]
+    account_without_access_did_mfa["Entrée 2FA dans l'appli ?"]
     delete_rgpd_find_dpo["Chercher email du DPO"]
     delete_rgpd_email["Envoyer l'email RGPD"]
     c_secured(["Compte sécurisé"])
     c_need_advice(["J'ai besoin d'aide"])
     c_deleted(["Compte supprimé"])
+    c_u_next_time(["À bientôt"])
 
+    intro -->|"Compte identifié"| start
+    intro -->|"Pas le temps"| c_u_next_time
     start -->|"Site disparu"| c_need_advice
     start -->|"Compte inconnu"| c_need_advice
     start -->|"Identifiants refusés"| account_new_password
@@ -88,10 +94,15 @@ flowchart TD
     mfa_enable -->|"Pas d'appli, autre méthode"| hibp_register
     mfa_enable -->|"Activée par appli"| hibp_register
     hibp_register -->|"Email inscrit"| c_secured
-    account_get_infos -->|"Infos récupérées"| account_delete_from_ui
+    account_get_infos -->|"Infos récupérées"| account_did_mfa
+    account_did_mfa -->|"2FA par appli"| account_delete_from_ui
+    account_did_mfa -->|"2FA sms/email/appel"| account_delete_from_ui
+    account_did_mfa -->|"Pas de 2FA"| account_delete_from_ui
     account_delete_from_ui -->|"Demande de suppression envoyée"| delete_rgpd_find_dpo
     account_delete_from_ui -->|"Aucun moyen trouvé"| delete_rgpd_find_dpo
-    account_find_info_without_access -->|"Infos trouvées"| delete_rgpd_find_dpo
+    account_find_info_without_access -->|"Infos trouvées"| account_without_access_did_mfa
+    account_without_access_did_mfa -->|"Entrée 2FA supprimée"| delete_rgpd_find_dpo
+    account_without_access_did_mfa -->|"Pas d'entrée 2FA"| delete_rgpd_find_dpo
     account_find_info_without_access -->|"Infos introuvables"| c_need_advice
     delete_rgpd_find_dpo -->|"Email du DPO trouvé"| delete_rgpd_email
     delete_rgpd_find_dpo -->|"DPO introuvable ou doute"| c_need_advice
@@ -101,7 +112,8 @@ flowchart TD
     classDef question fill:#eef2ff,stroke:#6366f1,color:#1e1b4b
     classDef ok fill:#dcfce7,stroke:#16a34a,color:#14532d
     classDef help fill:#fef3c7,stroke:#d97706,color:#78350f
-    class start,account_new_password,account_need,type_compte,abonnement_need,service_need,ecommerce_need,ecommerce_current_order,ecommerce_sav,ecommerce_loyalty,email_check,email_update,password_check,password_complex,password_since,password_update,payment_check,payment_set_card,payment_clear_cards,payment_card_limited,mfa_check,mfa_enable,hibp_register,account_get_infos,account_delete_from_ui,account_find_info_without_access,delete_rgpd_find_dpo,delete_rgpd_email question
+    class intro,start,account_new_password,account_need,type_compte,abonnement_need,service_need,ecommerce_need,ecommerce_current_order,ecommerce_sav,ecommerce_loyalty,email_check,email_update,password_check,password_complex,password_since,password_update,payment_check,payment_set_card,payment_clear_cards,payment_card_limited,mfa_check,mfa_enable,hibp_register,account_get_infos,account_did_mfa,account_delete_from_ui,account_find_info_without_access,account_without_access_did_mfa,delete_rgpd_find_dpo,delete_rgpd_email question
     class c_secured ok
     class c_need_advice help
     class c_deleted ok
+    class c_u_next_time help
