@@ -1,13 +1,20 @@
 ---
 title: comptes-utilisateur.json
+config:
+  layout: elk
 ---
 flowchart TD
-    start["Identifier le compte"]
-    account_new_password["Demander un nouveau mot de passe"]
+    start["Identifier compte à analyser"]
+    account_new_password["Demander nouveau mot de passe"]
     account_need["Besoin de ce compte ?"]
     type_compte["Type de compte ?"]
     abonnement_need["Encore abonné ?"]
-    email_check["Email utilisé sur beaucoup de comptes ?"]
+    service_need["Encore besoin du service ?"]
+    ecommerce_need["Commande récente (6 mois) ?"]
+    ecommerce_current_order["Commande en cours ?"]
+    ecommerce_sav["SAV/garantie liée au compte ?"]
+    ecommerce_loyalty["Avantages fidélité intéressants ?"]
+    email_check["Email utilisé sur plusieurs comptes ?"]
     email_update["Changer l'email"]
     password_check["Mot de passe réutilisé ?"]
     password_complex["Mot de passe assez complexe ?"]
@@ -20,15 +27,14 @@ flowchart TD
     mfa_check["Double authentification dispo ?"]
     mfa_enable["Activer la 2FA par appli"]
     hibp_register["Inscrire l'email sur HIBP"]
+    account_get_infos["Récupérer infos du compte"]
+    account_delete_from_ui["Suppression possible depuis le site ?"]
+    account_find_info_without_access["Chercher infos sans accès"]
+    delete_rgpd_find_dpo["Chercher email du DPO"]
+    delete_rgpd_email["Envoyer l'email RGPD"]
     c_secured(["Compte sécurisé"])
     c_need_advice(["J'ai besoin d'aide"])
-    delete_rgpd_check["Demande de suppression RGPD"]
-    delete_rgpd_email["Envoyer l'email RGPD"]
     c_deleted(["Compte supprimé"])
-    abonnement_still["⚠ abonnement_still<br/>(nœud manquant)"]
-    abonnement_stop["⚠ abonnement_stop<br/>(nœud manquant)"]
-    ecommerce_need["⚠ ecommerce_need<br/>(nœud manquant)"]
-    service_need["⚠ service_need<br/>(nœud manquant)"]
 
     start -->|"Site disparu"| c_need_advice
     start -->|"Compte inconnu"| c_need_advice
@@ -37,54 +43,65 @@ flowchart TD
     account_new_password -->|"Connexion réussie"| type_compte
     account_new_password -->|"Compte non reconnu"| account_need
     account_need -->|"Oui"| c_need_advice
-    account_need -->|"Non"| delete_rgpd_check
+    account_need -->|"Non"| account_find_info_without_access
     type_compte -->|"E-commerce"| ecommerce_need
     type_compte -->|"Abonnement"| abonnement_need
     type_compte -->|"Service"| service_need
-    abonnement_need -->|"Oui"| abonnement_still
-    abonnement_need -->|"Non"| abonnement_stop
-    email_check -->|"Oui"| password_check
-    email_check -->|"Non"| email_update
+    abonnement_need -->|"Oui, encore abonné"| email_check
+    abonnement_need -->|"Non, compte dormant"| account_get_infos
+    service_need -->|"Oui, besoin du service"| email_check
+    service_need -->|"Non, désinscription possible"| account_get_infos
+    ecommerce_need -->|"Commande récente"| email_check
+    ecommerce_need -->|"Pas de commande récente"| ecommerce_current_order
+    ecommerce_current_order -->|"Commande en cours"| email_check
+    ecommerce_current_order -->|"Aucune commande en cours"| ecommerce_sav
+    ecommerce_sav -->|"SAV lié au compte"| email_check
+    ecommerce_sav -->|"Factures suffisent"| ecommerce_loyalty
+    ecommerce_loyalty -->|"Garder les avantages"| email_check
+    ecommerce_loyalty -->|"Avantages non nécessaires"| account_get_infos
+    ecommerce_loyalty -->|"Pas d'avantages"| account_get_infos
+    email_check -->|"Email déjà spécifique"| password_check
+    email_check -->|"Email utilisé ailleurs"| email_update
     email_update -->|"Email changé"| password_check
-    email_update -->|"Impossible / refus"| password_check
-    password_check -->|"Oui"| password_update
-    password_check -->|"Non"| password_complex
-    password_complex -->|"Oui"| password_update
-    password_complex -->|"Non"| password_since
-    password_since -->|"Oui"| payment_check
+    email_update -->|"Changement impossible/refusé"| password_check
+    password_check -->|"Mot de passe réutilisé"| password_update
+    password_check -->|"Mot de passe unique"| password_complex
+    password_complex -->|"Oui, complexe"| password_since
+    password_complex -->|"Non, pas complexe"| password_update
+    password_since -->|"Changé récemment"| payment_check
     password_since -->|"Ne sait plus"| password_update
-    password_since -->|"Non"| password_update
-    password_update -->|"Changé"| payment_check
-    payment_check -->|"IBAN"| payment_set_card
-    payment_check -->|"Carte bancaire"| payment_clear_cards
-    payment_check -->|"Aucun"| mfa_check
+    password_since -->|"Changé depuis longtemps"| password_update
+    password_update -->|"Mot de passe changé"| payment_check
+    payment_check -->|"IBAN enregistré"| payment_set_card
+    payment_check -->|"Carte bancaire enregistrée"| payment_clear_cards
+    payment_check -->|"Aucun moyen enregistré"| mfa_check
     payment_set_card -->|"Tout retiré"| mfa_check
     payment_set_card -->|"Carte à la place"| payment_card_limited
     payment_set_card -->|"Doit garder l'IBAN"| mfa_check
     payment_clear_cards -->|"Tout retiré"| mfa_check
-    payment_clear_cards -->|"Doit en garder une"| payment_card_limited
+    payment_clear_cards -->|"Garder une carte"| payment_card_limited
     payment_card_limited -->|"Carte virtuelle créée"| mfa_check
-    payment_card_limited -->|"Impossible : carte classique"| mfa_check
+    payment_card_limited -->|"Carte classique imposée"| mfa_check
     mfa_check -->|"Non disponible"| hibp_register
     mfa_check -->|"Déjà activée"| mfa_enable
     mfa_check -->|"Dispo, pas activée"| mfa_enable
-    mfa_enable -->|"Pas d'appli : autre méthode"| hibp_register
+    mfa_enable -->|"Pas d'appli, autre méthode"| hibp_register
     mfa_enable -->|"Activée par appli"| hibp_register
-    hibp_register -->|"Inscrit"| c_secured
-    delete_rgpd_check -->|"Infos DPO trouvées"| delete_rgpd_email
-    delete_rgpd_check -->|"DPO introuvable / doute"| c_need_advice
+    hibp_register -->|"Email inscrit"| c_secured
+    account_get_infos -->|"Infos récupérées"| account_delete_from_ui
+    account_delete_from_ui -->|"Demande de suppression envoyée"| delete_rgpd_find_dpo
+    account_delete_from_ui -->|"Aucun moyen trouvé"| delete_rgpd_find_dpo
+    account_find_info_without_access -->|"Infos trouvées"| delete_rgpd_find_dpo
+    account_find_info_without_access -->|"Infos introuvables"| c_need_advice
+    delete_rgpd_find_dpo -->|"Email du DPO trouvé"| delete_rgpd_email
+    delete_rgpd_find_dpo -->|"DPO introuvable ou doute"| c_need_advice
     delete_rgpd_email -->|"Email envoyé"| c_deleted
     delete_rgpd_email -->|"Doute"| c_need_advice
 
     classDef question fill:#eef2ff,stroke:#6366f1,color:#1e1b4b
     classDef ok fill:#dcfce7,stroke:#16a34a,color:#14532d
     classDef help fill:#fef3c7,stroke:#d97706,color:#78350f
-    classDef del fill:#e5e7eb,stroke:#6b7280,color:#111827
-    classDef broken fill:#fee2e2,stroke:#dc2626,color:#7f1d1d,stroke-dasharray:5 3
-    classDef orphan fill:#fef3c7,stroke:#d97706,color:#78350f,stroke-dasharray:5 3
-    class start,account_new_password,account_need,type_compte,abonnement_need,email_update,password_check,password_complex,password_since,password_update,payment_check,payment_set_card,payment_clear_cards,payment_card_limited,mfa_check,mfa_enable,hibp_register,delete_rgpd_check,delete_rgpd_email question
+    class start,account_new_password,account_need,type_compte,abonnement_need,service_need,ecommerce_need,ecommerce_current_order,ecommerce_sav,ecommerce_loyalty,email_check,email_update,password_check,password_complex,password_since,password_update,payment_check,payment_set_card,payment_clear_cards,payment_card_limited,mfa_check,mfa_enable,hibp_register,account_get_infos,account_delete_from_ui,account_find_info_without_access,delete_rgpd_find_dpo,delete_rgpd_email question
     class c_secured ok
     class c_need_advice help
-    class c_deleted del
-    class abonnement_still,abonnement_stop,ecommerce_need,service_need broken
-    class email_check orphan
+    class c_deleted ok
