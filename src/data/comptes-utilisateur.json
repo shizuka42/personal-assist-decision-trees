@@ -1,6 +1,6 @@
 {
   "titre": "Sécuriser mes comptes utilisateur en ligne",
-  "description": "Supprimer au mieux mes comptes utilisateur ou mieux les sécuriser.",
+  "description": "Supprimer mes comptes utilisateur ou mieux les sécuriser.",
   "start": "start",
   "nodes": {
     "start": {
@@ -57,7 +57,7 @@
         },
         {
           "label": "Non, j'aurais pu le supprimer sans soucis.",
-          "suivant": "delete_rgpd_check"
+          "suivant": "account_find_info_without_access"
         }
       ]
     },
@@ -71,7 +71,7 @@
           "suivant": "ecommerce_need"
         },
         {
-          "label": "Compte client à un abonnemment (exemple : Bouygues Telecom, Le Monde, ...)",
+          "label": "Compte client à un abonnement (exemple : Bouygues Telecom, Le Monde, ...)",
           "suivant": "abonnement_need"
         },
         {
@@ -83,15 +83,94 @@
     "abonnement_need": {
       "type": "question",
       "titre": "Es-tu encore abonné actuellement ?",
-      "texte": "",
+      "texte": "S'il s'agit d'un compte auquel tu n'es plus abonné, il est considéré comme dormant. Il est recommandé de supprimer ce compte pour réduire les risques liés à tes données personnelles. Si tu souhaites te réabonner un jour, tu pourras créer un nouveau compte à ce moment.",
       "choix": [
         {
-          "label": "Oui",
-          "suivant": "abonnement_still"
+          "label": "Oui, je suis encore abonné.",
+          "suivant": "email_check"
         },
         {
-          "label": "Non",
-          "suivant": "abonnement_stop"
+          "label": "Non, je ne suis plus abonné. Il s'agit d'un compte dormant.",
+          "suivant": "account_get_infos"
+        }
+      ]
+    },
+    "service_need": {
+      "type": "question",
+      "titre": "As-tu encore besoin de ce service ?",
+      "texte": "Certains services peuvent être nécessaires même si tu n'en as plus un usage actif. Il est important de vérifier si tu peux te désinscrire ou si tu dois continuer à utiliser ce service.",
+      "choix": [
+        {
+          "label": "Oui, j'en ai besoin ou je suis obligé d'y être inscrit.",
+          "suivant": "email_check"
+        },
+        {
+          "label": "Non, je peux me désinscrire.",
+          "suivant": "account_get_infos"
+        }
+      ]
+    },
+    "ecommerce_need": {
+      "type": "question",
+      "titre": "Est-ce que tu as effectué une commande sur ce site dans les 6 derniers mois ?",
+      "texte": "Il est utile de conserver son compte client sur un site de e-commerce si tu y as effectué des commandes récentes, afin de faciliter le suivi de tes achats et la gestion de tes retours. Et cela peut aussi signifier que tu commandes souvent sur ce site.",
+      "choix": [
+        {
+          "label": "Oui, j'ai effectué une commande sur ce site dans les 6 derniers mois.",
+          "suivant": "email_check"
+        },
+        {
+          "label": "Non, je n'ai pas effectué de commande sur ce site depuis longtemps.",
+          "suivant": "ecommerce_current_order"
+        }
+      ]
+    },
+    "ecommerce_current_order":{
+      "type": "question",
+      "titre": "Est-ce que tu as une commande encore en cours de traitement ?",
+      "texte": "Il faut garder ce compte client si une commande est encore en cours de traitement.",
+      "choix": [
+        {
+          "label": "Oui, j'ai encore une commande en cours.",
+          "suivant": "email_check"
+        },
+        {
+          "label": "Non, je n'ai aucune commande en cours.",
+          "suivant": "ecommerce_sav"
+        }
+      ]
+    },
+    "ecommerce_sav":{
+      "type": "question",
+      "titre": "Faut-il conserver ce compte client pour bénéficier de la SAV ou de la garantie des produits commandés sur le site ?",
+      "texte": "Il est important de conserver ce compte client s'il est nécessaire pour bénéficier du service après-vente (SAV) ou de la garantie des produits que tu as commandés sur ce site.",
+      "choix": [
+        {
+          "label": "Oui, la SAV et la garantie dépende du compte client.",
+          "suivant": "email_check"
+        },
+        {
+          "label": "Non, je peux récupérer les factures et ces factures suffiront pour la SAV et les garanties en contactant directement les marques des produits commandés.",
+          "suivant": "ecommerce_loyalty"
+        }
+      ]
+    },
+    "ecommerce_loyalty":{
+      "type": "question",
+      "titre": "Est-ce ce compte client donne des avantages intéressants qui ne seraient pas donnés à un nouveau compte client ?",
+      "texte": "Il arrive que certains comptes clients offrent des avantages via le cumul de commandes/points de fidélité/date de création. Un nouveau compte ne pourrait donc pas bénéficier de ces avantages immédiatement. Il serait alors intéressant de conserver ce compte client pour continuer à bénéficier de ces avantages. Attention : le cas de ecommerce de produits dématérialisés (jeux vidéos, musiques, films, ebooks, etc) est critique : il faut souvent garder le compte client pour avoir accès aux produits.",
+      "choix": [
+        {
+          "label": "Oui, je veux garder ces avantages.",
+          "suivant": "email_check"
+        },
+        {
+          "label": "Oui, mais je n'ai pas/plus besoin de ces avantages.",
+          "suivant": "account_get_infos"
+        },
+        {
+          "label": "Non, il n'y a pas d'avantages intéressants.",
+          "suivant": "account_get_infos"
         }
       ]
     },
@@ -101,11 +180,11 @@
       "texte": "Les impacts des ventes ou fuites de données personnelles seront réduits en utilisant le plus possible une adresse email unique pour chaque compte utilisateur.",
       "choix": [
         {
-          "label": "Oui",
+          "label": "Non, cette adresse est déjà spécifique à ce compte.",
           "suivant": "password_check"
         },
         {
-          "label": "Non",
+          "label": "Oui, cette adresse est utilisée sur d'autres comptes.",
           "suivant": "email_update"
         }
       ]
@@ -126,7 +205,7 @@
       ],
       "liens": [
         {
-          "label": "Alias sur une adresse gmail",
+          "label": "Alias sur une adresse gmail (section \"Utiliser un alias Gmail\")",
           "url": "https://support.google.com/mail/answer/22370?hl=fr#zippy=%2Cfiltrer-les-messages-%C3%A0-laide-de-votre-alias-gmail"
         }
       ]
@@ -134,14 +213,14 @@
     "password_check": {
       "type": "question",
       "titre": "Est-ce que le mot de passe sur ce compte est utilisé sur un autre des tes comptes ?",
-      "texte": "Lors des fuites de données, il arrive que les mots de passe soient volés. Il est donc important de ne pas utiliser le même mot de passe sur différents comptes pour éviter qu'un mot de passe volé donne accès à plusieurs de tes comptes.",
+      "texte": "Lors des fuites de données, il arrive que les mots de passe soient volés. Il est donc important de ne pas utiliser le même mot de passe sur différents comptes pour éviter qu'un mot de passe volé donne accès à plusieurs comptes.",
       "choix": [
         {
-          "label": "Oui",
+          "label": "Oui, ce mot de passe est utilisé sur d'autres comptes.",
           "suivant": "password_update"
         },
         {
-          "label": "Non",
+          "label": "Non, ce mot de passe est spécifique à ce compte.",
           "suivant": "password_complex"
         }
       ]
@@ -153,11 +232,11 @@
       "choix": [
         {
           "label": "Oui, mon mot de passe est complexe.",
-          "suivant": "password_update"
+          "suivant": "password_since"
         },
         {
           "label": "Non",
-          "suivant": "password_since"
+          "suivant": "password_update"
         }
       ]
     },
@@ -336,13 +415,54 @@
       "titre": "J'ai besoin d'aide.",
       "texte": "Contacte une personne de confiance et un peu calée en informatique pour t'aider à identifier les informations qu'il te manque."
     },
-    "delete_rgpd_check": {
+    "account_get_infos":{
       "type": "question",
-      "titre": "Je demande la suppression complète de mes données personnelles (via la loi RGPD) par email même si mon compte est déjà désactivé.",
-      "texte": "Pour faire la demande de suppression, il faut réunir au minimum ces informations : ton adresse email utilisée sur ce compte, l'adresse email du DPO du site concerné. Ces informations supplémentaires peuvent aider : nom et prénom utilisés sur ce compte, numéro du compte. Pour trouver l'adresse email du DPO du site concerné, il faut parcourir les CGU/CGV/données personnelles/mentions légales du site (une recherche avec Ctrl+F pour rechercher 'dpo' ou 'personnelles' peut aider).",
+      "titre": "Récupérer les informations de mon compte",
+      "texte": "Pour demander la suppression des données personnelles (dans une étape ultérieure), il faut d'abord récupérer ces informations de ton compte : ton adresse email enregistrée sur le compte, ton numéro de compte/client et tes nom et prénom enregistrés sur le compte. Certains sites ne demandent pas ton nom et prénom, et d'autres ne te donnent pas de numéro de compte. L'information essentielle est l'adresse email.",
       "choix": [
         {
-          "label": "Ok j'ai trouvé les infos nécessaires.",
+          "label": "Ok j'ai récupéré les informations.",
+          "suivant": "account_delete_from_ui"
+        }
+      ]
+    },
+    "account_delete_from_ui":{
+      "type": "question",
+      "titre": "Est-ce qu'il y a un moyen de demander la suppression de ton compte sur le site ?",
+      "texte": "La plupart des sites permettent de demander la suppression de ton compte directement depuis les pages de gestion de ton compte. Cette méthode est généralement traitée plus vite que la demande par email, donc à privilégier quand elle est disponible.",
+      "choix": [
+        {
+          "label": "Oui, j'ai fait la demande de suppression.",
+          "suivant": "delete_rgpd_find_dpo"
+        },
+        {
+          "label": "Non, je n'ai pas trouvé (ou il n'y a pas) de moyen de demander la suppression. Je ferais la demande de suppression du compte avec mes données personnelles par email grâce à l'étape suivante.",
+          "suivant": "delete_rgpd_find_dpo"
+        }
+      ]
+    },
+    "account_find_info_without_access": {
+      "type": "question",
+      "titre": "Je cherche les informations pour identifier mon compte même si je n'ai plus accès à celui-ci. Je les note pour pouvoir faire la demande de suppression.",
+      "texte": "Même si le compte est déjà supprimé/désactivé, tu peux demander la suppression complète de tes données personnelles pour retirer tes données de leurs différents registres. Pour faire la demande de suppression, il faut trouver des informations qui permettront d'identifier ton compte : ton adresse email utilisée sur ce compte (nécessaire), nom et prénom utilisés sur ce compte, numéro du compte (conseil : à chercher parmi tes emails reçus de ce site).",
+      "choix": [
+        {
+          "label": "Ok j'ai trouvé les infos.",
+          "suivant": "delete_rgpd_find_dpo"
+        },
+        {
+          "label": "Je ne trouve pas ces informations.",
+          "suivant": "c_need_advice"
+        }
+      ]
+    },
+    "delete_rgpd_find_dpo": {
+      "type": "question",
+      "titre": "Je cherche l'adresse email du DPO pour demander la suppression complète de mes données personnelles.",
+      "texte": "Même si le compte est déjà supprimé/désactivé, tu peux demander la suppression complète de tes données personnelles pour retirer tes données de leurs différents registres. Pour faire la demande de suppression, il faut trouver l'adresse email du DPO du site concerné. Pour trouver l'adresse email du DPO du site concerné, il faut parcourir les CGU/CGV/données personnelles/mentions légales du site (une recherche avec Ctrl+F pour rechercher 'dpo' ou 'personnelles' peut aider).",
+      "choix": [
+        {
+          "label": "Ok j'ai trouvé l'adresse email du DPO (voire plusieurs adresses).",
           "suivant": "delete_rgpd_email"
         },
         {
