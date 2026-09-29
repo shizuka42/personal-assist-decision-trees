@@ -1,0 +1,32 @@
+Subject: Request for Account Closure and Permanent Deletion of My Personal Data (GDPR)
+
+Dear Sir or Madam,
+
+I hereby inform you of my decision to permanently close my user account, even if it is currently deactivated, associated with the following information:
+
+First name / Last name: [Your First Name and Last Name]
+Account email address: [Your Email Address]
+Customer ID / Account Number: [Your Customer Number]
+
+In accordance with Article 17 of the General Data Protection Regulation (GDPR), I request the permanent and complete erasure of all personal data relating to me, including in particular:
+
+- My profile information and contact details,
+- My purchase, order, and billing history (subject to your legal data retention obligations),
+- My browsing, login, and geolocation data.
+
+Furthermore, pursuant to Articles 7 and 21 of the GDPR, I withdraw any consent previously granted and formally object to any future processing of my data. In particular, I require:
+
+- The immediate cessation of the use of my data for direct marketing, profiling, or statistical purposes,
+- A strict prohibition on any transfer or sale of my data to third parties or commercial partners.
+
+If some of my data (such as invoices) must be retained to comply with a legal or tax obligation, I request, in accordance with Article 18 of the GDPR, that its processing be restricted: such data must be locked, securely archived, and no longer used for any other purpose.
+
+Pursuant to Article 12.3 of the GDPR, you have a maximum period of one month from receipt of this email to respond to my request and confirm the deletion of my data.
+
+In the absence of a response, or in the event of an unjustified refusal, I reserve the right to lodge a complaint with the relevant data protection authority.
+
+I would appreciate confirmation by return email that my request has been duly taken into account.
+
+Yours faithfully,
+
+[Your First Name] [Your Last Name]
