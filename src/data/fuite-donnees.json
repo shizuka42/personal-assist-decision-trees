@@ -1,0 +1,633 @@
+{
+  "titre": "Réagir à une fuite de données",
+  "description": "Savoir quoi faire quand mes données personnelles apparaissent dans une fuite de données (alerte Have I Been Pwned, article de presse, message d'un service).",
+  "start": "intro",
+  "nodes": {
+    "intro": {
+      "type": "question",
+      "titre": "Introduction",
+      "texte": "Une fuite de données, cela arrive fréquemment et ce n'est pas de ta faute. L'important est de réagir vite et dans le bon ordre. Garde sous la main l'alerte que tu as reçue (message de Have I Been Pwned, email du service, article de presse) : elle indique le service concerné et les données volées.",
+      "choix": [
+        {
+          "label": "Ok, j'ai l'alerte sous les yeux.",
+          "suivant": "source"
+        },
+        {
+          "label": "Je n'ai pas le temps. Je reviendrai plus tard.",
+          "suivant": "c_u_next_time"
+        }
+      ]
+    },
+    "source": {
+      "type": "question",
+      "titre": "Comment as-tu appris cette fuite de données ?",
+      "texte": "Selon la source de l'information, la première étape n'est pas la même : vérifier que l'alerte est authentique, retrouver le service concerné ou vérifier si tu es touché.",
+      "choix": [
+        {
+          "label": "Via Have I Been Pwned : mon adresse email apparaît dans une fuite.",
+          "suivant": "hibp_check"
+        },
+        {
+          "label": "Via un email ou un SMS du service concerné qui m'avertit de la fuite.",
+          "suivant": "verify_message"
+        },
+        {
+          "label": "Via la presse ou les réseaux sociaux : un service que je connais est cité.",
+          "suivant": "service_check"
+        }
+      ]
+    },
+    "verify_message": {
+      "type": "question",
+      "titre": "Je vérifie que le message d'alerte est authentique.",
+      "texte": "Les escrocs profitent des fuites de données en envoyant de faux messages d'alerte qui t'incitent à cliquer sur un lien et à saisir tes identifiants ou ta carte bancaire. Ne clique sur aucun lien du message. Va directement sur le site officiel du service (en tapant son adresse toi-même ou depuis son application officielle) et cherche l'information dans ses actualités ou sa rubrique sécurité. Regarde aussi si la presse en parle. Conseil : un vrai message d'alerte ne te demande jamais ton mot de passe ni ton numéro de carte bancaire.",
+      "choix": [
+        {
+          "label": "J'ai vérifié : le service confirme bien la fuite.",
+          "suivant": "data_which"
+        },
+        {
+          "label": "C'était un faux message.",
+          "suivant": "c_fake_message"
+        },
+        {
+          "label": "Je n'arrive pas à vérifier si le message est authentique.",
+          "suivant": "c_need_advice"
+        }
+      ]
+    },
+    "c_fake_message": {
+      "type": "conclusion",
+      "titre": "Faux message d'alerte",
+      "texte": "Bravo, tu as évité le piège. Ne clique sur aucun lien, ne réponds pas et supprime le message. Tu peux le signaler sur signal-spam.fr (emails) ou le transférer au 33700 (SMS et appels). Si tu as déjà cliqué sur un lien ou saisi des informations, change immédiatement le mot de passe concerné et contacte ta banque si tu as saisi un numéro de carte.",
+      "liens": [
+        {
+          "label": "Signal Spam (signaler un email frauduleux)",
+          "url": "https://www.signal-spam.fr/"
+        }
+      ]
+    },
+    "hibp_check": {
+      "type": "question",
+      "titre": "Mon adresse email apparaît dans Have I Been Pwned.",
+      "texte": "Have I Been Pwned indique le nom de chaque fuite dans laquelle ton adresse email a été trouvée, ainsi que les types de données concernées (adresses email, mots de passe, numéros de téléphone, adresses postales, etc.). Ouvre la fiche de la fuite et note le nom du service et la liste des données. Une adresse email dans une fuite ne veut pas dire que ton mot de passe a été volé : tout dépend des données listées. Tu peux être concerné par plusieurs fuites : traite-les une par une avec cet arbre.",
+      "choix": [
+        {
+          "label": "Je reconnais le service concerné.",
+          "suivant": "data_which"
+        },
+        {
+          "label": "Je ne reconnais pas ce service.",
+          "suivant": "unknown_service"
+        }
+      ],
+      "liens": [
+        {
+          "label": "Have I Been Pwned",
+          "url": "https://haveibeenpwned.com/"
+        }
+      ]
+    },
+    "unknown_service": {
+      "type": "question",
+      "titre": "Je ne reconnais pas le service. Je cherche d'où vient ce compte.",
+      "texte": "Tu as peut-être créé un compte il y a longtemps, ou le service a changé de nom depuis. Tes données ont aussi pu arriver chez lui sans que tu le saches (revente de données, inscription par un tiers). Conseil : cherche le nom du service dans ta boîte mail (y compris les spams et la corbeille) ainsi que dans ton gestionnaire de mots de passe ou celui de ton navigateur. Cela t'aidera à savoir quelles données tu lui avais confiées.",
+      "choix": [
+        {
+          "label": "J'ai retrouvé des traces de ce compte.",
+          "suivant": "data_which"
+        },
+        {
+          "label": "Je ne retrouve rien, je continue quand même.",
+          "suivant": "data_which"
+        }
+      ]
+    },
+    "service_check": {
+      "type": "question",
+      "titre": "Je vérifie si je suis concerné par la fuite annoncée dans la presse.",
+      "texte": "Une fuite annoncée dans la presse ne concerne pas forcément toutes les personnes clientes du service. Vérifie si tu es ou as été client du service cité (emails reçus, factures, gestionnaire de mots de passe). Attention : certaines fuites touchent des personnes qui n'ont jamais créé de compte en ligne (par exemple via une mutuelle, un opérateur ou une banque qui conserve leurs données). Le service doit informer les personnes concernées quand le risque est élevé : tu peux donc recevoir un message officiel, à vérifier comme indiqué dans l'étape précédente.",
+      "choix": [
+        {
+          "label": "Oui, je suis (ou j'ai été) client de ce service.",
+          "suivant": "data_which"
+        },
+        {
+          "label": "Je ne suis pas sûr d'être concerné.",
+          "suivant": "check_concerned"
+        },
+        {
+          "label": "Non, je ne suis pas client de ce service.",
+          "suivant": "c_not_concerned"
+        }
+      ]
+    },
+    "check_concerned": {
+      "type": "question",
+      "titre": "Je ne sais pas si je suis concerné.",
+      "texte": "Plusieurs moyens existent : vérifier ton adresse email sur Have I Been Pwned (uniquement si cette fuite y a été recensée), consulter la page d'information que le service met généralement en ligne, et attendre le message officiel du service. Ces vérifications ne sont pas infaillibles : Have I Been Pwned ne recense pas toutes les fuites. Conseil : si tu étais client du service, mieux vaut te comporter comme si tu étais concerné.",
+      "choix": [
+        {
+          "label": "J'ai appris que je suis concerné.",
+          "suivant": "data_which"
+        },
+        {
+          "label": "Je ne suis finalement pas concerné.",
+          "suivant": "c_not_concerned"
+        },
+        {
+          "label": "Je n'arrive pas à savoir si je suis concerné.",
+          "suivant": "c_need_advice"
+        }
+      ],
+      "liens": [
+        {
+          "label": "Have I Been Pwned",
+          "url": "https://haveibeenpwned.com/"
+        },
+        {
+          "label": "Conseils de la CNIL en cas de fuite ou de vol de données",
+          "url": "https://cnil.fr/fr/conseils-fuite-vol-donnees"
+        }
+      ]
+    },
+    "c_not_concerned": {
+      "type": "conclusion",
+      "titre": "Tu n'es pas concerné",
+      "texte": "Bravo, tu n'as rien à faire pour cette fuite. Profites-en pour inscrire ton adresse email sur Have I Been Pwned afin d'être averti si elle apparaît dans une prochaine fuite.",
+      "liens": [
+        {
+          "label": "Have I Been Pwned",
+          "url": "https://haveibeenpwned.com/"
+        }
+      ]
+    },
+    "data_which": {
+      "type": "question",
+      "titre": "Quelles données sont concernées par la fuite ?",
+      "texte": "Pour la suite, tu as besoin de la liste des données volées : elle figure sur la fiche de Have I Been Pwned, dans le message du service ou dans l'article de presse. On va passer en revue les types de données dans l'ordre d'urgence : carte bancaire, IBAN, mot de passe, pièce d'identité, numéro de sécurité sociale et santé, puis coordonnées. Pas de panique : tu ne réagiras qu'aux données réellement concernées.",
+      "choix": [
+        {
+          "label": "Ok, j'ai la liste des données concernées.",
+          "suivant": "card_check"
+        },
+        {
+          "label": "Je n'ai pas trouvé la liste des données concernées.",
+          "suivant": "data_unknown"
+        }
+      ]
+    },
+    "data_unknown": {
+      "type": "question",
+      "titre": "Je ne connais pas la liste des données concernées.",
+      "texte": "Quand la liste n'est pas connue, le plus prudent est de partir du principe que toutes les informations confiées à ce service peuvent être concernées : adresse email, mot de passe, coordonnées, moyens de paiement enregistrés, documents transmis, etc. Pour chaque question suivante, réponds donc en fonction de ce que tu avais enregistré sur ce compte, et choisis « Je ne sais pas » si besoin.",
+      "choix": [
+        {
+          "label": "Ok, je pars de ce que j'avais enregistré sur ce compte.",
+          "suivant": "card_check"
+        },
+        {
+          "label": "Je ne sais plus ce que j'avais enregistré sur ce compte, je continue quand même.",
+          "suivant": "card_check"
+        }
+      ]
+    },
+    "card_check": {
+      "type": "question",
+      "titre": "Des données de carte bancaire sont-elles concernées ?",
+      "texte": "Numéro de carte, date d'expiration ou cryptogramme (les 3 chiffres au dos de la carte). Ces données peuvent servir à faire des paiements frauduleux. C'est l'étape la plus urgente : si tu es concerné, ne la remets pas à plus tard.",
+      "choix": [
+        {
+          "label": "Oui, ma carte bancaire est concernée.",
+          "suivant": "card_action"
+        },
+        {
+          "label": "Je ne sais pas, mais une carte bancaire était enregistrée sur ce compte.",
+          "suivant": "card_action"
+        },
+        {
+          "label": "Non, aucune donnée de carte bancaire n'est concernée.",
+          "suivant": "iban_check"
+        }
+      ]
+    },
+    "card_action": {
+      "type": "question",
+      "titre": "Je surveille mes opérations bancaires.",
+      "texte": "Vérifie dans tes relevés bancaires les opérations des dernières semaines, y compris les petits montants, souvent utilisés pour tester une carte volée.",
+      "choix": [
+        {
+          "label": "J'ai repéré des opérations que je ne reconnais pas.",
+          "suivant": "c_fraud"
+        },
+        {
+          "label": "La carte enregistrée n'est plus valide (expirée ou déjà remplacée). Je supprime tous les moyens de paiement de ce compte, ou je laisse cette carte périmée si il faut laisser au moins un moyen de paiement.",
+          "suivant": "iban_check"
+        },
+        {
+          "label": "Je n'ai repéré aucune opération suspecte. Je continue de surveiller mes relevés. Si la carte concernée est une carte limitée et spécifique à ce compte, je la supprime/fais opposition sur cette carte. Je supprime tous les moyens de paiement de ce compte, ou j'enregistre une carte limitée et spécifique à ce compte si il faut laisser au moins un moyen de paiement.",
+          "suivant": "iban_check"
+        }                
+      ]
+    },
+    "iban_check": {
+      "type": "question",
+      "titre": "Un IBAN est-il concerné ?",
+      "texte": "Un IBAN (ou un RIB) ne permet pas de vider un compte, mais il peut servir à mettre en place des prélèvements frauduleux ou à rendre crédible une arnaque (par exemple un faux conseiller bancaire qui connaît ton IBAN). Le plus important est donc de surveiller ton compte.",
+      "choix": [
+        {
+          "label": "Oui, mon IBAN est concerné.",
+          "suivant": "iban_action"
+        },
+        {
+          "label": "Je ne sais pas, mais un IBAN était enregistré sur ce compte.",
+          "suivant": "iban_action"
+        },
+        {
+          "label": "Non, aucun IBAN n'est concerné.",
+          "suivant": "password_check"
+        }
+      ]
+    },
+    "iban_action": {
+      "type": "question",
+      "titre": "Je surveille mes prélèvements et mandats SEPA.",
+      "texte": "Il n'est généralement pas nécessaire de changer d'IBAN. Surveille tes prélèvements et mandats SEPA pendant plusieurs mois : un prélèvement non autorisé peut être contesté auprès de ta banque dans un délai de 13 mois. Attention : méfie-toi des appels et messages de faux conseillers bancaires, qui s'appuient sur ton vrai IBAN pour te mettre en confiance.",
+      "choix": [
+        {
+          "label": "Je vais surveiller mes prélèvements et mandats SEPA.",
+          "suivant": "password_check"
+        },
+        {
+          "label": "J'ai repéré des prélèvements que je ne reconnais pas.",
+          "suivant": "c_fraud"
+        }
+      ]
+    },
+    "password_check": {
+      "type": "question",
+      "titre": "Un mot de passe est-il concerné ?",
+      "texte": "Quand un mot de passe est volé, les pirates l'essaient automatiquement avec ton adresse email sur d'autres sites. Même quand le service précise que les mots de passe étaient « chiffrés » ou « hachés », un mot de passe simple peut être retrouvé. Dans le doute, il vaut mieux le changer.",
+      "choix": [
+        {
+          "label": "Oui, mon mot de passe est concerné.",
+          "suivant": "password_where"
+        },
+        {
+          "label": "Je ne sais pas si mon mot de passe est concerné.",
+          "suivant": "password_where"
+        },
+        {
+          "label": "Non, aucun mot de passe n'est concerné.",
+          "suivant": "password_where"
+        }
+      ]
+    },
+    "password_where": {
+      "type": "question",
+      "titre": "Je change le mot de passe du compte concerné.",
+      "texte": "Même si le mot de passe n'est mentionné comme volé, il est préférable de le changer. Connecte-toi au site en tapant toi-même son adresse (jamais via un lien reçu dans un message) et change le mot de passe. Utilise un générateur de mot de passe ou celui de ton gestionnaire de mots de passe. Si le site le propose, déconnecte aussi les autres appareils ou sessions ouvertes sur ton compte, et vérifie que l'adresse email et le numéro de téléphone de récupération n'ont pas été modifiés. Si tu ne peux plus te connecter, essaie « Mot de passe perdu ».",
+      "choix": [
+        {
+          "label": "J'ai changé le mot de passe de ce compte.",
+          "suivant": "password_reuse"
+        },
+        {
+          "label": "Je n'arrive plus à me connecter à ce compte (même avec « Mot de passe perdu ») ou mes informations de compte ont été modifiées.",
+          "suivant": "c_account_hijacked"
+        },
+        {
+          "label": "Ce compte n'existe plus ou je ne l'utilise plus.",
+          "suivant": "password_reuse"
+        }
+      ],
+      "liens": [
+        {
+          "label": "Générateur de mots de passe par Proton",
+          "url": "https://proton.me/fr/pass/password-generator"
+        }
+      ]
+    },
+    "password_reuse": {
+      "type": "question",
+      "titre": "Le mot de passe compromis est-il utilisé sur d'autres de tes comptes ?",
+      "texte": "C'est le risque principal : avec ton adresse email et ce mot de passe volés, des robots testent automatiquement tes comptes sur des centaines d'autres sites. Si tu as réutilisé ce mot de passe, même en changeant un chiffre ou une lettre, tous ces comptes sont en danger.",
+      "choix": [
+        {
+          "label": "Oui, ce mot de passe est utilisé sur d'autres comptes.",
+          "suivant": "password_reuse_action"
+        },
+        {
+          "label": "Non, ce mot de passe était spécifique à ce compte.",
+          "suivant": "mfa_leak"
+        },
+        {
+          "label": "Je ne sais plus.",
+          "suivant": "password_reuse_action"
+        }
+      ]
+    },
+    "password_reuse_action": {
+      "type": "question",
+      "titre": "Je change ce mot de passe sur les autres comptes concernés, en commençant par les plus importants.",
+      "texte": "Ordre conseillé : 1) ta messagerie principale (elle permet de réinitialiser tous les autres comptes), 2) tes comptes de banque, d'impôts, d'administration et de santé, 3) tes comptes d'achats en ligne et de réseaux sociaux, 4) tout le reste. Chaque compte doit avoir un mot de passe différent, généré avec un générateur de mot de passe.",
+      "choix": [
+        {
+          "label": "J'ai changé les mots de passe de tous les comptes concernés.",
+          "suivant": "mfa_leak"
+        },
+        {
+          "label": "J'ai changé les plus importants, je ferai le reste plus tard.",
+          "suivant": "mfa_leak"
+        }
+      ],
+      "liens": [
+        {
+          "label": "Générateur de mots de passe par Proton",
+          "url": "https://proton.me/fr/pass/password-generator"
+        }
+      ]
+    },
+    "mfa_leak": {
+      "type": "question",
+      "titre": "J'active la double authentification sur les comptes.",
+      "texte": "Avec la double authentification, quelqu'un qui aurait volé ton mot de passe ne peut pas se connecter à ta place : il lui manque le deuxième code. Active-la en priorité sur ta messagerie principale, puis sur le compte concerné par la fuite et sur tes comptes importants. Conseil : privilégie un code généré par une application sur smartphone plutôt qu'un code reçu par SMS ou par email (voir les liens ci-dessous).",
+      "choix": [
+        {
+          "label": "J'ai activé la double authentification sur mes comptes importants.",
+          "suivant": "id_check"
+        },
+        {
+          "label": "Le site ne propose pas la double authentification.",
+          "suivant": "id_check"
+        },
+        {
+          "label": "Je le ferai plus tard.",
+          "suivant": "id_check"
+        }
+      ],
+      "liens": [
+        {
+          "label": "Proton Authenticator (de préférence)",
+          "url": "https://play.google.com/store/apps/details?id=proton.android.authenticator"
+        },
+        {
+          "label": "Google Authenticator",
+          "url": "https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2"
+        }
+      ]
+    },
+    "id_check": {
+      "type": "question",
+      "titre": "Une pièce d'identité ou un justificatif est-il concerné ?",
+      "texte": "Copie de carte d'identité, de passeport ou de permis de conduire, justificatif de domicile, RIB, avis d'imposition, etc. Ces documents permettent d'usurper ton identité, par exemple pour ouvrir un compte, souscrire un crédit ou un abonnement à ton nom.",
+      "choix": [
+        {
+          "label": "Oui, un de ces documents est concerné.",
+          "suivant": "id_action"
+        },
+        {
+          "label": "Je ne sais pas, mais j'avais transmis ce type de document à ce service.",
+          "suivant": "id_action"
+        },
+        {
+          "label": "Non, aucun document de ce type n'est concerné.",
+          "suivant": "health_check"
+        }
+      ]
+    },
+    "id_action": {
+      "type": "question",
+      "titre": "Je surveille les signes d'usurpation d'identité.",
+      "texte": "Tu ne peux pas « changer » une pièce d'identité qui a fuité : l'objectif est de repérer rapidement un usage frauduleux. Pendant plusieurs mois, sois attentif aux courriers de relance pour des achats, crédits ou abonnements que tu n'as pas souscrits, aux appels de sociétés de recouvrement et aux refus inexpliqués d'un organisme. Conseil : à l'avenir, quand tu dois envoyer une copie de pièce d'identité, ajoute un filigrane indiquant le destinataire, l'usage et la date (voir le lien ci-dessous).",
+      "choix": [
+        {
+          "label": "Ok, je surveille mes courriers, mes comptes et ma boîte mail.",
+          "suivant": "health_check"
+        },
+        {
+          "label": "J'ai déjà repéré une utilisation frauduleuse de mon identité.",
+          "suivant": "c_identity_theft"
+        }
+      ],
+      "liens": [
+        {
+          "label": "FiligraneFacile : ajouter un filigrane à une copie de document",
+          "url": "https://filigrane.beta.gouv.fr/"
+        },
+        {
+          "label": "Cybermalveillance.gouv.fr (conseils et assistance)",
+          "url": "https://www.cybermalveillance.gouv.fr/"
+        }
+      ]
+    },
+    "health_check": {
+      "type": "question",
+      "titre": "Ton numéro de sécurité sociale ou des données de santé sont-ils concernés ?",
+      "texte": "Le numéro de sécurité sociale, l'état civil, les informations sur ta mutuelle ou sur ton état de santé ne peuvent pas être changés. Ils sont recherchés pour rendre une arnaque très crédible (faux message de l'Assurance Maladie, de ta mutuelle ou d'un médecin) ou pour faire pression sur toi.",
+      "choix": [
+        {
+          "label": "Oui, mon numéro de sécurité sociale ou des données de santé sont concernés.",
+          "suivant": "health_action"
+        },
+        {
+          "label": "Je ne sais pas, mais j'avais transmis ce type d'information à ce service.",
+          "suivant": "health_action"
+        },
+        {
+          "label": "Non, ces données ne sont pas concernées.",
+          "suivant": "personal_check"
+        }
+      ]
+    },
+    "health_action": {
+      "type": "question",
+      "titre": "Je sécurise mes comptes de santé et je me méfie des faux messages.",
+      "texte": "Change le mot de passe de ton compte Ameli et de celui de ta mutuelle, et active la double authentification si elle est proposée. Consulte ton historique de remboursements pour repérer des soins que tu ne reconnais pas. Ne donne jamais ton numéro de sécurité sociale, ta carte Vitale ou des informations de santé à quelqu'un qui te contacte par email, SMS ou téléphone : passe par ton compte officiel. Attention : un message qui te menace de divulguer des informations de santé si tu ne paies pas est du chantage.",
+      "choix": [
+        {
+          "label": "Ok, j'ai sécurisé mes comptes de santé.",
+          "suivant": "personal_check"
+        },
+        {
+          "label": "J'ai reçu un message de chantage ou de menace.",
+          "suivant": "c_blackmail"
+        }
+      ]
+    },
+    "personal_check": {
+      "type": "question",
+      "titre": "Tes coordonnées sont-elles concernées ?",
+      "texte": "Adresse email, numéro de téléphone, adresse postale, date de naissance, nom et prénom... La plupart des fuites contiennent au moins l'adresse email. Ces informations ne se changent pas facilement, mais elles servent à cibler des arnaques personnalisées (faux colis, faux coursier, faux conseiller).",
+      "choix": [
+        {
+          "label": "Oui, mon adresse email est concernée.",
+          "suivant": "email_leak"
+        },
+        {
+          "label": "Oui, mon numéro de téléphone, mon adresse postale ou ma date de naissance sont concernés (mais pas mon adresse email).",
+          "suivant": "phishing_vigilance"
+        },
+        {
+          "label": "Non, uniquement d'autres informations (pseudo, historique d'achats, etc.).",
+          "suivant": "phishing_vigilance"
+        }
+      ]
+    },
+    "email_leak": {
+      "type": "question",
+      "titre": "Mon adresse email fait partie de la fuite.",
+      "texte": "Ton adresse email ne donne pas accès à tes comptes à elle seule, mais elle recevra davantage de spams et de tentatives d'hameçonnage. Ne réponds à aucun message suspect et ne clique sur aucun lien. Vérifie aussi la sécurité de ta boîte mail : elle doit avoir un mot de passe unique et la double authentification, et il ne doit y avoir aucune règle de redirection automatique des emails ni aucun appareil connecté que tu ne reconnais pas. Conseil : à l'avenir, utilise une adresse email différente pour chaque compte (alias) afin de limiter l'impact d'une fuite et de savoir d'où elle vient.",
+      "choix": [
+        {
+          "label": "J'ai vérifié la sécurité de ma boîte mail.",
+          "suivant": "hibp_notify"
+        },
+        {
+          "label": "Je ne sais pas comment vérifier la sécurité de ma boîte mail.",
+          "suivant": "c_need_advice"
+        }
+      ]
+    },
+    "hibp_notify": {
+      "type": "question",
+      "titre": "Être averti des prochaines fuites de données.",
+      "texte": "Si ce n'est pas déjà fait, inscris l'adresse email concernée sur Have I Been Pwned pour être averti si elle apparaît dans une nouvelle fuite. Après inscription sur le site, il faut activer l'inscription via le lien reçu par email de la part de « Have I Been Pwned ».",
+      "choix": [
+        {
+          "label": "Mon adresse email est déjà inscrite sur Have I Been Pwned.",
+          "suivant": "phishing_vigilance"
+        },
+        {
+          "label": "J'ai inscrit mon adresse email sur Have I Been Pwned et activé l'inscription.",
+          "suivant": "phishing_vigilance"
+        }
+      ],
+      "liens": [
+        {
+          "label": "Have I Been Pwned",
+          "url": "https://haveibeenpwned.com/"
+        }
+      ]
+    },
+    "phishing_vigilance": {
+      "type": "question",
+      "titre": "Je reste vigilant face aux messages et aux appels frauduleux.",
+      "texte": "Après une fuite, les arnaques utilisent tes vraies informations (nom, adresse, service concerné) pour paraître crédibles, pendant des semaines voire des mois. Les bons réflexes : 1) Ne clique pas sur les liens reçus par email ou SMS : passe par le site officiel ou l'application. 2) Ne communique jamais un code reçu par SMS, un mot de passe ou un numéro de carte, même à quelqu'un qui se présente comme ton conseiller bancaire. 3) Ta banque ne te demandera jamais de valider une opération pour « annuler une fraude » et n'enverra jamais un coursier chercher ta carte. 4) Au moindre doute, raccroche et rappelle toi-même le numéro officiel (au dos de ta carte ou sur le site officiel). 5) Méfie-toi de l'urgence, des menaces et des gains inattendus. 6) Signale les messages frauduleux sur signal-spam.fr (emails) ou au 33700 (SMS et appels).",
+      "choix": [
+        {
+          "label": "Ok, j'ai bien compris ces réflexes.",
+          "suivant": "service_account_future"
+        },
+        {
+          "label": "J'ai déjà cliqué sur un lien ou donné des informations après la fuite.",
+          "suivant": "c_clicked"
+        }
+      ],
+      "liens": [
+        {
+          "label": "Signal Spam (signaler un email frauduleux)",
+          "url": "https://www.signal-spam.fr/"
+        },
+        {
+          "label": "Cybermalveillance.gouv.fr (conseils et assistance)",
+          "url": "https://www.cybermalveillance.gouv.fr/"
+        }
+      ]
+    },
+    "service_account_future": {
+      "type": "question",
+      "titre": "Ce compte me sert-il encore ?",
+      "texte": "Un compte dont tu n'as plus besoin ne fait que prolonger l'exposition de tes données personnelles. Après une fuite, c'est le bon moment pour le supprimer et pour demander l'effacement de tes données. Si tu veux le garder, les étapes précédentes l'ont déjà mieux protégé.",
+      "choix": [
+        {
+          "label": "Oui, j'ai encore besoin de ce compte.",
+          "suivant": "c_secured_after_leak"
+        },
+        {
+          "label": "Non, je n'en ai plus besoin.",
+          "suivant": "c_delete_account"
+        },
+        {
+          "label": "Je ne reconnais pas ce compte ou je n'y ai plus accès.",
+          "suivant": "c_delete_account"
+        }
+      ]
+    },
+    "c_secured_after_leak": {
+      "type": "conclusion",
+      "titre": "Fuite traitée",
+      "texte": "Bravo, tu as réagi aux principales conséquences de cette fuite de données. Reste attentif dans les semaines et les mois qui viennent : surveille tes relevés bancaires, méfie-toi des messages inattendus et reviens dans cet arbre si une nouvelle fuite te concerne. Pense aussi à l'arbre « Sécuriser mes comptes utilisateur en ligne » pour renforcer tes autres comptes."
+    },
+    "c_delete_account": {
+      "type": "conclusion",
+      "titre": "Supprimer ce compte",
+      "texte": "Bravo, tu as traité les conséquences de la fuite. Pour supprimer ce compte et demander l'effacement de tes données, utilise l'entrée « Sécuriser mes comptes utilisateur en ligne » depuis le début : il t'accompagne pas à pas, même si tu n'as plus accès au compte."
+    },
+    "c_fraud": {
+      "type": "conclusion",
+      "titre": "Opérations bancaires suspectes",
+      "texte": "Agis tout de suite : 1) Contacte ta banque pour faire opposition à ta carte et/ou bloquer les prélèvements. 2) Conteste chaque opération que tu ne reconnais pas : le délai est en principe de 13 mois pour une opération non autorisée, mais plus tu agis vite, mieux c'est. 3) Garde les preuves (captures d'écran, relevés, messages reçus). 4) Dépose plainte au commissariat ou à la gendarmerie : ta banque peut te la demander. 5) Fais-toi accompagner sur cybermalveillance.gouv.fr. Reprends ensuite cet arbre pour traiter les autres données concernées par la fuite.",
+      "liens": [
+        {
+          "label": "Cybermalveillance.gouv.fr (conseils et assistance)",
+          "url": "https://www.cybermalveillance.gouv.fr/"
+        }
+      ]
+    },
+    "c_identity_theft": {
+      "type": "conclusion",
+      "titre": "Usurpation d'identité",
+      "texte": "Garde toutes les preuves (courriers, relevés, messages) et dépose plainte au commissariat ou à la gendarmerie. Préviens par écrit, de préférence par lettre recommandée, les organismes concernés (banque, opérateur, société de crédit, créancier) en contestant les contrats et les dettes que tu n'as pas souscrits. Fais-toi accompagner sur cybermalveillance.gouv.fr. Reprends ensuite cet arbre pour traiter les autres données concernées par la fuite.",
+      "liens": [
+        {
+          "label": "Cybermalveillance.gouv.fr (conseils et assistance)",
+          "url": "https://www.cybermalveillance.gouv.fr/"
+        }
+      ]
+    },
+    "c_blackmail": {
+      "type": "conclusion",
+      "titre": "Chantage",
+      "texte": "Ne paie rien et ne réponds pas, même si le message contient des informations vraies sur toi : les escrocs comptent sur la peur et la honte, et payer ne garantit pas qu'ils se taisent. Garde le message et fais des captures d'écran, puis dépose plainte au commissariat ou à la gendarmerie. Fais-toi accompagner sur cybermalveillance.gouv.fr. Change aussi les mots de passe des comptes concernés.",
+      "liens": [
+        {
+          "label": "Cybermalveillance.gouv.fr (conseils et assistance)",
+          "url": "https://www.cybermalveillance.gouv.fr/"
+        }
+      ]
+    },
+    "c_account_hijacked": {
+      "type": "conclusion",
+      "titre": "Compte piraté",
+      "texte": "Un pirate a peut-être pris le contrôle de ton compte. Contacte vite le support du service, depuis son site officiel, pour récupérer l'accès ou faire bloquer le compte. Si une carte bancaire y était enregistrée, fais opposition auprès de ta banque. Change le mot de passe des autres comptes qui utilisaient le même, en commençant par ta messagerie. Si le compte permet d'envoyer des messages en ton nom, préviens tes proches : ils pourraient recevoir des messages frauduleux. Fais-toi accompagner sur cybermalveillance.gouv.fr si besoin.",
+      "liens": [
+        {
+          "label": "Cybermalveillance.gouv.fr (conseils et assistance)",
+          "url": "https://www.cybermalveillance.gouv.fr/"
+        }
+      ]
+    },
+    "c_clicked": {
+      "type": "conclusion",
+      "titre": "J'ai cliqué ou donné des informations",
+      "texte": "Pas de panique, ça arrive même aux personnes les plus prudentes. Agis vite : 1) Si tu as donné un numéro de carte, un code reçu par SMS ou un accès à ton application bancaire, contacte immédiatement ta banque pour faire opposition. 2) Si tu as saisi un mot de passe, change-le tout de suite sur le vrai site et partout où tu l'utilisais. 3) Si tu as installé une application ou donné la main à distance sur ton ordinateur ou ton smartphone, déconnecte l'appareil d'internet et demande de l'aide. 4) Garde les preuves et dépose plainte si tu as subi un préjudice. 5) Fais-toi accompagner sur cybermalveillance.gouv.fr.",
+      "liens": [
+        {
+          "label": "Cybermalveillance.gouv.fr (conseils et assistance)",
+          "url": "https://www.cybermalveillance.gouv.fr/"
+        }
+      ]
+    },
+    "c_need_advice": {
+      "type": "conclusion",
+      "titre": "J'ai besoin d'aide.",
+      "texte": "Contacte une personne de confiance et un peu calée en informatique pour t'aider à identifier les informations qu'il te manque."
+    },
+    "c_u_next_time": {
+      "type": "conclusion",
+      "titre": "A bientôt",
+      "texte": "Reviens vite : plus tu réagis tôt à une fuite de données, plus tu limites les dégâts."
+    }
+  }
+}

@@ -1,0 +1,123 @@
+---
+title: fuite-donnees.json
+config:
+  layout: elk
+---
+flowchart TD
+    intro["Préparer l'alerte reçue"]
+    source["Comment as-tu appris la fuite ?"]
+    verify_message["Alerte authentique ?"]
+    hibp_check["Email présent dans HIBP"]
+    unknown_service["Service inconnu : chercher l'origine"]
+    service_check["Client du service cité ?"]
+    check_concerned["Suis-je concerné ?"]
+    data_which["Quelles données concernées ?"]
+    data_unknown["Liste des données inconnue"]
+    card_check["Carte bancaire concernée ?"]
+    card_action["Surveiller les opérations bancaires"]
+    iban_check["IBAN concerné ?"]
+    iban_action["Surveiller prélèvements et mandats SEPA"]
+    password_check["Mot de passe concerné ?"]
+    password_where["Changer le mot de passe du compte"]
+    password_reuse["Mot de passe réutilisé ailleurs ?"]
+    password_reuse_action["Changer les autres mots de passe"]
+    mfa_leak["Activer la double authentification"]
+    id_check["Pièce d'identité concernée ?"]
+    id_action["Surveiller l'usurpation d'identité"]
+    health_check["N° sécu ou santé concernés ?"]
+    health_action["Sécuriser les comptes santé"]
+    personal_check["Coordonnées concernées ?"]
+    email_leak["Sécuriser la boîte mail"]
+    hibp_notify["Inscrire l'email sur HIBP"]
+    phishing_vigilance["Rester vigilant face aux arnaques"]
+    service_account_future["Compte encore utile ?"]
+    c_secured_after_leak(["Fuite traitée"])
+    c_delete_account(["Supprimer ce compte"])
+    c_not_concerned(["Pas concerné"])
+    c_fake_message(["Faux message d'alerte"])
+    c_fraud(["Opérations bancaires suspectes"])
+    c_identity_theft(["Usurpation d'identité"])
+    c_blackmail(["Chantage"])
+    c_account_hijacked(["Compte piraté"])
+    c_clicked(["J'ai cliqué ou donné des infos"])
+    c_need_advice(["J'ai besoin d'aide"])
+    c_u_next_time(["À bientôt"])
+
+    intro -->|"Alerte sous les yeux"| source
+    intro -->|"Pas le temps"| c_u_next_time
+    source -->|"Alerte HIBP"| hibp_check
+    source -->|"Message du service"| verify_message
+    source -->|"Presse ou réseaux sociaux"| service_check
+    verify_message -->|"Fuite confirmée"| data_which
+    verify_message -->|"Faux message"| c_fake_message
+    verify_message -->|"Vérification impossible"| c_need_advice
+    hibp_check -->|"Service reconnu"| data_which
+    hibp_check -->|"Service inconnu"| unknown_service
+    unknown_service -->|"Traces retrouvées"| data_which
+    unknown_service -->|"Rien, je continue"| data_which
+    service_check -->|"Client du service"| data_which
+    service_check -->|"Pas sûr d'être concerné"| check_concerned
+    service_check -->|"Pas client"| c_not_concerned
+    check_concerned -->|"Concerné confirmé"| data_which
+    check_concerned -->|"Finalement pas concerné"| c_not_concerned
+    check_concerned -->|"Impossible de savoir"| c_need_advice
+    data_which -->|"Liste obtenue"| card_check
+    data_which -->|"Liste introuvable"| data_unknown
+    data_unknown -->|"Partir de l'enregistré"| card_check
+    data_unknown -->|"Je ne sais plus"| card_check
+    card_check -->|"Carte concernée"| card_action
+    card_check -->|"Carte enregistrée, doute"| card_action
+    card_check -->|"Aucune carte concernée"| iban_check
+    card_action -->|"Opérations suspectes"| c_fraud
+    card_action -->|"Carte plus valide"| iban_check
+    card_action -->|"Aucune opération suspecte"| iban_check
+    iban_check -->|"IBAN concerné"| iban_action
+    iban_check -->|"IBAN enregistré, doute"| iban_action
+    iban_check -->|"Aucun IBAN concerné"| password_check
+    iban_action -->|"Je surveille"| password_check
+    iban_action -->|"Prélèvements suspects"| c_fraud
+    password_check -->|"Mot de passe concerné"| password_where
+    password_check -->|"Mot de passe incertain"| password_where
+    password_check -->|"Aucun mot de passe"| password_where
+    password_where -->|"Mot de passe changé"| password_reuse
+    password_where -->|"Accès perdu ou modifié"| c_account_hijacked
+    password_where -->|"Compte inexistant ou abandonné"| password_reuse
+    password_reuse -->|"Réutilisé ailleurs"| password_reuse_action
+    password_reuse -->|"Spécifique à ce compte"| mfa_leak
+    password_reuse -->|"Je ne sais plus"| password_reuse_action
+    password_reuse_action -->|"Tous changés"| mfa_leak
+    password_reuse_action -->|"Seulement les principaux"| mfa_leak
+    mfa_leak -->|"2FA activée"| id_check
+    mfa_leak -->|"Pas de 2FA proposée"| id_check
+    mfa_leak -->|"Plus tard"| id_check
+    id_check -->|"Document concerné"| id_action
+    id_check -->|"Document transmis, doute"| id_action
+    id_check -->|"Aucun document concerné"| health_check
+    id_action -->|"Je surveille"| health_check
+    id_action -->|"Usurpation constatée"| c_identity_theft
+    health_check -->|"Données de santé concernées"| health_action
+    health_check -->|"Transmises, doute"| health_action
+    health_check -->|"Non concernées"| personal_check
+    health_action -->|"Comptes santé sécurisés"| personal_check
+    health_action -->|"Message de chantage"| c_blackmail
+    personal_check -->|"Email concerné"| email_leak
+    personal_check -->|"Téléphone, adresse ou naissance"| phishing_vigilance
+    personal_check -->|"Autres informations seulement"| phishing_vigilance
+    email_leak -->|"Boîte mail vérifiée"| hibp_notify
+    email_leak -->|"Besoin d'aide pour vérifier"| c_need_advice
+    hibp_notify -->|"Déjà inscrit"| phishing_vigilance
+    hibp_notify -->|"Inscription activée"| phishing_vigilance
+    phishing_vigilance -->|"Réflexes compris"| service_account_future
+    phishing_vigilance -->|"Déjà cliqué"| c_clicked
+    service_account_future -->|"Besoin du compte"| c_secured_after_leak
+    service_account_future -->|"Plus besoin"| c_delete_account
+    service_account_future -->|"Compte inconnu ou inaccessible"| c_delete_account
+
+    classDef question fill:#eef2ff,stroke:#6366f1,color:#1e1b4b
+    classDef ok fill:#dcfce7,stroke:#16a34a,color:#14532d
+    classDef help fill:#fef3c7,stroke:#d97706,color:#78350f
+    classDef danger fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
+    class intro,source,verify_message,hibp_check,unknown_service,service_check,check_concerned,data_which,data_unknown,card_check,card_action,iban_check,iban_action,password_check,password_where,password_reuse,password_reuse_action,mfa_leak,id_check,id_action,health_check,health_action,personal_check,email_leak,hibp_notify,phishing_vigilance,service_account_future question
+    class c_secured_after_leak,c_delete_account,c_not_concerned,c_fake_message ok
+    class c_need_advice,c_u_next_time help
+    class c_fraud,c_identity_theft,c_blackmail,c_account_hijacked,c_clicked danger
