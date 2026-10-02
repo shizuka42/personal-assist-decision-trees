@@ -1,0 +1,90 @@
+---
+title: creation-compte-utilisateur.json
+config:
+  layout: elk
+---
+flowchart TD
+    intro["Préparer le site d'inscription"]
+    need_check["Besoin réel d'un compte ?"]
+    auth_method["Mode de création du compte ?"]
+    third_party_only["Connexion via compte tiers imposée"]
+    email_create["Utiliser un alias email"]
+    email_alias_refused["Alias refusé : variante avec points"]
+    password_create["Générer un mot de passe unique"]
+    data_minimum["Champs obligatoires uniquement"]
+    name_check["Vrai nom nécessaire ?"]
+    phone_check["Téléphone demandé ?"]
+    birthdate_check["Date de naissance demandée ?"]
+    id_doc_check["Document d'identité demandé ?"]
+    id_doc_refuse["Ne pas transmettre le document"]
+    id_doc_watermark["Ajouter un filigrane"]
+    payment_check["Moyen de paiement demandé ?"]
+    payment_remind["Privilégier carte virtuelle limitée"]
+    payment_card_limited["Carte virtuelle limitée"]
+    account_list["Noter le compte dans ma liste"]
+    check_after_create["Régler la configuration du compte"]
+    mfa_check["Double authentification dispo ?"]
+    mfa_enable["Activer la 2FA par appli"]
+    recovery_codes["Conserver les codes de secours"]
+    privacy_settings["Régler marketing et confidentialité"]
+    hibp_register["Inscrire l'email sur HIBP"]
+    c_created(["Compte créé et sécurisé"])
+    c_no_account(["Pas de compte, pas de risque"])
+    c_renounce(["J'abandonne l'inscription"])
+    c_need_advice(["J'ai besoin d'aide"])
+    c_u_next_time(["À bientôt"])
+
+    intro -->|"Prêt à créer"| need_check
+    intro -->|"Pas le temps"| c_u_next_time
+    need_check -->|"Mode invité possible"| c_no_account
+    need_check -->|"Compte nécessaire"| auth_method
+    auth_method -->|"Email, mot de passe"| email_create
+    auth_method -->|"Connexion tierce uniquement"| third_party_only
+    third_party_only -->|"Renoncer ou alternative"| c_renounce
+    third_party_only -->|"Aucun autre choix"| c_need_advice
+    email_create -->|"Alias accepté"| password_create
+    email_create -->|"Alias refusé"| email_alias_refused
+    email_alias_refused -->|"Variante avec points"| password_create
+    email_alias_refused -->|"Adresse non unique"| password_create
+    password_create -->|"Mot de passe enregistré"| data_minimum
+    data_minimum -->|"Champs facultatifs vides"| name_check
+    name_check -->|"Vrai nom nécessaire"| phone_check
+    name_check -->|"Pseudonyme suffisant"| phone_check
+    phone_check -->|"Non renseigné"| birthdate_check
+    phone_check -->|"Obligatoire, renseigné"| birthdate_check
+    birthdate_check -->|"Non demandée"| id_doc_check
+    birthdate_check -->|"1er janvier saisi"| id_doc_check
+    birthdate_check -->|"Vraie date légitime"| id_doc_check
+    id_doc_check -->|"Aucun document"| payment_check
+    id_doc_check -->|"Demande légitime"| id_doc_watermark
+    id_doc_check -->|"Demande injustifiée"| id_doc_refuse
+    id_doc_check -->|"Doute sur légitimité"| c_need_advice
+    id_doc_refuse -->|"Abandon ou alternative"| c_renounce
+    id_doc_refuse -->|"Besoin du service"| c_need_advice
+    id_doc_watermark -->|"Filigrane ajouté"| payment_check
+    payment_check -->|"Aucun enregistré"| payment_remind
+    payment_check -->|"Paiement obligatoire"| payment_card_limited
+    payment_remind -->|"Compris"| account_list
+    payment_card_limited -->|"Carte virtuelle créée"| account_list
+    payment_card_limited -->|"Carte habituelle imposée"| account_list
+    account_list -->|"Compte noté"| check_after_create
+    check_after_create -->|"Ouvrir l'espace compte"| mfa_check
+    mfa_check -->|"Non disponible"| privacy_settings
+    mfa_check -->|"Disponible"| mfa_enable
+    mfa_enable -->|"Pas d'appli, autre méthode"| privacy_settings
+    mfa_enable -->|"Activée par appli"| recovery_codes
+    recovery_codes -->|"Codes conservés"| privacy_settings
+    recovery_codes -->|"Aucun code fourni"| privacy_settings
+    privacy_settings -->|"Options réglées"| hibp_register
+    hibp_register -->|"Email inscrit"| c_created
+
+    classDef question fill:#eef2ff,stroke:#6366f1,color:#1e1b4b
+    classDef ok fill:#dcfce7,stroke:#16a34a,color:#14532d
+    classDef help fill:#fef3c7,stroke:#d97706,color:#78350f
+    class intro,need_check,auth_method,third_party_only,email_create,email_alias_refused,password_create,data_minimum,name_check,phone_check,birthdate_check,id_doc_check,id_doc_refuse,id_doc_watermark,payment_check,payment_remind,payment_card_limited,account_list,check_after_create,mfa_check,mfa_enable,recovery_codes,privacy_settings,hibp_register question
+    class c_created ok
+    class c_no_account ok
+    class c_renounce ok
+    class c_need_advice help
+    class c_u_next_time help
+    

@@ -16,6 +16,12 @@
           "label": "Je n'ai pas le temps. Je reviendrai plus tard.",
           "suivant": "c_u_next_time"
         }
+      ],
+      "images": [
+        {
+          "label": "",
+          "url": "data/images/alltechbuzz_net-hacker-4523097_640.jpg"
+        }
       ]
     },
     "source": {

@@ -1,0 +1,412 @@
+{
+  "titre": "Créer un nouveau compte utilisateur en ligne",
+  "description": "Créer un nouveau compte en limitant les données personnelles exposées.",
+  "start": "intro",
+  "nodes": {
+    "intro": {
+      "type": "question",
+      "titre": "Introduction",
+      "texte": "Chaque nouveau compte est une nouvelle porte d'entrée pour les ventes/fuites de données personnelles. Le meilleur moment pour limiter les risques est la création du compte : ce que tu ne donnes pas ne pourra jamais être volé. Prépare le site sur lequel tu veux t'inscrire et suis les étapes une par une, sans valider le formulaire d'inscription avant la fin.",
+      "choix": [
+        {
+          "label": "Ok, je suis prêt à créer un compte.",
+          "suivant": "need_check"
+        },
+        {
+          "label": "Je n'ai pas le temps. Je reviendrai plus tard.",
+          "suivant": "c_u_next_time"
+        }
+      ],
+      "images": [
+        {
+          "label": "",
+          "url": "data/images/f1digitals-test-paper-7702622_640.jpg"
+        }
+      ]
+    },
+    "need_check": {
+      "type": "question",
+      "titre": "Est-ce que tu as vraiment besoin de créer un compte ?",
+      "texte": "Un compte qui n'existe pas ne peut pas fuiter. Certains sites/services sont accessibles/utilisables sans compte personnel. Un compte est utile si tu comptes utiliser le service régulièrement, si tu dois suivre un abonnement ou si le service l'impose (mutuelle, banque, impôts, ...).",
+      "choix": [
+        {
+          "label": "Le site propose un mode invité (ou je n'ai besoin du service qu'une seule fois). Je n'ai pas besoin de compte.",
+          "suivant": "c_no_account"
+        },
+        {
+          "label": "Non, je dois créer un compte (obligatoire, ou je l'utiliserai régulièrement).",
+          "suivant": "auth_method"
+        }
+      ]
+    },
+    "auth_method": {
+      "type": "question",
+      "titre": "Comment le site te propose-t-il de créer ton compte ?",
+      "texte": "Beaucoup de sites mettent en avant des boutons 'Continuer avec Google/Facebook/Apple/Microsoft/autre'. C'est pratique mais déconseillé, pour deux raisons. 1) Tu centralises le risque : si ton compte Google (ou Facebook, ...) est piraté, le pirate aura accès à tous les sites reliés à ce compte d'un seul coup. 2) Tu perds la trace de tes inscriptions : il devient très difficile de retrouver plus tard à quels services tu es inscrit, donc difficile de supprimer les comptes inutiles. De plus, ces géants apprennent à quels services tu t'inscris. Conseil : choisis toujours la création de compte avec une adresse email et un mot de passe, même si c'est un peu plus long. Ce mode est parfois moins visible sur la page, regarde bien partout.",
+      "choix": [
+        {
+          "label": "Le site propose la création de compte avec une adresse email et un mot de passe.",
+          "suivant": "email_create"
+        },
+        {
+          "label": "Le site propose uniquement de se connecter via Google, Facebook, Apple, Microsoft, etc.",
+          "suivant": "third_party_only"
+        }
+      ]
+    },
+    "third_party_only": {
+      "type": "question",
+      "titre": "Le site impose la connexion via un compte tiers.",
+      "texte": "Dans ce cas, il est déconseillé de créer ce compte : il faudrait relier ce site à ton compte Google/Facebook/etc, avec tous les inconvénients vus à l'étape précédente. Conseil : cherche d'abord si le site propose un autre moyen de s'inscrire (lien discret 'S'inscrire avec une adresse email', application mobile, etc) ou s'il existe un service équivalent qui ne l'impose pas.",
+      "choix": [
+        {
+          "label": "Je renonce à ce compte ou je cherche un service équivalent.",
+          "suivant": "c_renounce"
+        },
+        {
+          "label": "J'ai vraiment besoin de ce service et je n'ai pas d'autre choix.",
+          "suivant": "c_need_advice"
+        }
+      ]
+    },
+    "email_create": {
+      "type": "question",
+      "titre": "J'utilise une adresse email spécifique à ce compte.",
+      "texte": "Les impacts des ventes ou fuites de données personnelles seront réduits en utilisant une adresse email unique pour chaque compte utilisateur. Astuce : utiliser un alias d'une adresse email gmail (exemple : alice.bob+leroymerlin@gmail.com au lieu de alice.bob@gmail.com). Tous les mails arrivent dans ta boîte habituelle, mais en cas de spam ou de fuite, tu sauras de quel site ça vient. Attention : l'alias n'est pas une protection d'anonymat, c'est une protection contre la réutilisation de ton adresse sur plusieurs comptes.",
+      "choix": [
+        {
+          "label": "J'ai saisi mon adresse alias et le site l'accepte.",
+          "suivant": "password_create"
+        },
+        {
+          "label": "Le site refuse mon alias (message d'erreur à cause du signe +).",
+          "suivant": "email_alias_refused"
+        }
+      ],
+      "liens": [
+        {
+          "label": "Alias sur une adresse gmail (section \"Utiliser un alias Gmail\")",
+          "url": "https://support.google.com/mail/answer/22370?hl=fr#zippy=%2Cfiltrer-les-messages-%C3%A0-laide-de-votre-alias-gmail"
+        }
+      ]
+    },
+    "email_alias_refused": {
+      "type": "question",
+      "titre": "Le site refuse le signe + dans mon adresse email.",
+      "texte": "Certains sites refusent le signe '+' dans les adresses email. Astuce : Gmail ignore les points dans la partie avant le @. Tu peux donc écrire a.lice.bob@gmail.com ou alice.bo.b@gmail.com : les mails arrivent dans la même boîte que alice.bob@gmail.com, avec une adresse différente pour chaque site. Note bien la variante que tu utilises pour ce site.",
+      "choix": [
+        {
+          "label": "J'ai utilisé une variante avec des points et le site l'accepte.",
+          "suivant": "password_create"
+        },
+        {
+          "label": "Le site refuse toujours mon adresse, ou je ne souhaite pas utiliser cette astuce. Je saisis une adresse email non unique.",
+          "suivant": "password_create"
+        }
+      ]
+    },
+    "password_create": {
+      "type": "question",
+      "titre": "Je génère un mot de passe unique pour ce compte.",
+      "texte": "Lors des fuites de données, il arrive que les mots de passe soient volés. Il est donc important de ne jamais réutiliser un mot de passe d'un autre compte, pour qu'un mot de passe volé ne donne pas accès à plusieurs comptes. Les mots de passe doivent être composés d'au minimum 12 caractères comprenant des majuscules, des minuscules, des chiffres et des caractères spéciaux. Il faut éviter d'inclure un 'vrai' mot dans le mot de passe. Conseil : utiliser un générateur de mot de passe. Tu peux utiliser le générateur de ton gestionnaire de mot de passe ou du lien ci-dessous.",
+      "choix": [
+        {
+          "label": "J'ai généré un mot de passe et je l'ai enregistré dans un endroit sûr.",
+          "suivant": "data_minimum"
+        }
+      ],
+      "liens": [
+        {
+          "label": "Générateur de mots de passe par Proton",
+          "url": "https://proton.me/fr/pass/password-generator"
+        }
+      ]
+    },
+    "data_minimum": {
+      "type": "question",
+      "titre": "Je ne remplis que les champs obligatoires.",
+      "texte": "Plus tu donnes d'informations, plus il y a de choses à voler et à revendre. En général, les champs obligatoires sont signalés par une étoile (*). Ne remplis pas les champs facultatifs (adresse, profession, centres d'intérêt, genre, ...) : tu pourras toujours les compléter plus tard si un jour tu en as besoin. Pour les prochaines étapes, regarde un par un les champs demandés.",
+      "choix": [
+        {
+          "label": "Ok, je laisse vides tous les champs facultatifs.",
+          "suivant": "name_check"
+        }
+      ]
+    },
+    "name_check": {
+      "type": "question",
+      "titre": "Est-ce que le site a besoin de ton vrai nom et prénom ?",
+      "texte": "Ton nom et prénom, associés à ton adresse email, permettent de t'identifier facilement. Ils ne sont nécessaires que si le site doit t'envoyer quelque chose à ton nom (livraison de colis), t'émettre une facture, ou si c'est un service officiel (banque, mutuelle, impôts, ...). Dans les autres cas (forum, jeu, réseau social, newsletter, ...), tu peux utiliser un pseudonyme.",
+      "choix": [
+        {
+          "label": "Oui, j'ai besoin d'une livraison, d'une facture ou c'est un service officiel. J'utilise mon vrai nom et prénom.",
+          "suivant": "phone_check"
+        },
+        {
+          "label": "Non, il n'y a ni livraison, ni facture, ni service officiel. J'utilise un pseudonyme.",
+          "suivant": "phone_check"
+        }
+      ]
+    },
+    "phone_check": {
+      "type": "question",
+      "titre": "Le site te demande-t-il ton numéro de téléphone ?",
+      "texte": "Ton numéro de téléphone est une information très identifiante, car il est unique et le même d'un site à l'autre : il permet de relier tes comptes entre eux. Il est aussi souvent utilisé pour du démarchage ou des arnaques par SMS. Ne le donne que s'il est vraiment indispensable (par exemple pour qu'un transporteur puisse te contacter lors d'une livraison).",
+      "choix": [
+        {
+          "label": "Non, il n'est pas demandé ou il est facultatif. Je ne le renseigne pas.",
+          "suivant": "birthdate_check"
+        },
+        {
+          "label": "Il est obligatoire pour que le service fonctionne (livraison, vérification, ...). Je le renseigne.",
+          "suivant": "birthdate_check"
+        }
+      ]
+    },
+    "birthdate_check": {
+      "type": "question",
+      "titre": "Le site te demande-t-il ta date de naissance ?",
+      "texte": "Ta date de naissance complète est une information qui sert à t'identifier : combinée avec ton nom et ton adresse email, elle facilite l'usurpation d'identité. Beaucoup de sites la demandent sans en avoir besoin (souvent pour des offres anniversaire ou vérifier que tu es majeur). Si le site n'a aucun besoin légitime de la date exacte, saisis le 1er janvier de ton année de naissance (exemple : né le 14 mars 1975 → 01/01/1975). Par contre, certains services ont un vrai besoin de la date exacte : banque, assurance, mutuelle, santé, impôts, achat de produits à âge limité (alcool, ...). Dans ces cas, ne mens pas : cela pourrait bloquer ton inscription ou tes démarches futures.",
+      "choix": [
+        {
+          "label": "Le site ne me demande pas ma date de naissance.",
+          "suivant": "id_doc_check"
+        },
+        {
+          "label": "Elle est demandée mais le site n'en a pas besoin. Je saisis le 1er janvier de mon année de naissance.",
+          "suivant": "id_doc_check"
+        },
+        {
+          "label": "Elle est demandée et c'est légitime (banque, assurance, santé, démarche officielle, âge légal, ...). Je saisis ma vraie date de naissance.",
+          "suivant": "id_doc_check"
+        }
+      ]
+    },
+    "id_doc_check": {
+      "type": "question",
+      "titre": "Le site te demande-t-il un document d'identité (carte d'identité, passeport, permis, justificatif de domicile, ...) ?",
+      "texte": "Un document d'identité est une donnée sensible : s'il est volé, il peut servir à ouvrir des comptes ou souscrire des crédits à ton nom. Certains services en ont un besoin légitime (banque, assurance, location de logement, démarches officielles, ...). Pour tous les autres (site marchand, réseau social, forum, jeu en ligne, ...), c'est une demande abusive : la loi impose aux sites de ne collecter que les données nécessaires.",
+      "choix": [
+        {
+          "label": "Non, aucun document n'est demandé.",
+          "suivant": "payment_check"
+        },
+        {
+          "label": "Oui, et c'est légitime (banque, assurance, location, démarche officielle, ...).",
+          "suivant": "id_doc_watermark"
+        },
+        {
+          "label": "Oui, mais je ne vois pas pourquoi le site en aurait besoin.",
+          "suivant": "id_doc_refuse"
+        },
+        {
+          "label": "Oui, mais j'ai un doute sur la légitimité de la demande.",
+          "suivant": "c_need_advice"
+        }
+      ]
+    },
+    "id_doc_refuse": {
+      "type": "question",
+      "titre": "Je ne transmets pas mon document d'identité.",
+      "texte": "Si le site n'a pas de raison évidente de te demander ce document, ne le transmets pas. Une demande de ce type sur un site qui n'en a pas besoin peut aussi être un signe d'arnaque. Tu peux demander au site, par son formulaire de contact, pourquoi il en a besoin, ou chercher un service équivalent qui ne l'exige pas.",
+      "choix": [
+        {
+          "label": "Je ne transmets rien et j'abandonne l'inscription ou je cherche une alternative.",
+          "suivant": "c_renounce"
+        },
+        {
+          "label": "J'ai vraiment besoin de ce service et je ne sais pas quoi faire.",
+          "suivant": "c_need_advice"
+        }
+      ]
+    },
+    "id_doc_watermark": {
+      "type": "question",
+      "titre": "J'ajoute un filigrane avant de transmettre mon document.",
+      "texte": "Même quand la demande est légitime, ne transmets jamais l'image brute de ton document. Ajoute un filigrane : un texte en travers du document qui précise à qui et pour quoi il est destiné (exemple : 'Pour BANQUE X uniquement - ouverture de compte - 12/05/2025'). Ainsi, si le document est volé, il sera inutilisable pour d'autres démarches.",
+      "choix": [
+        {
+          "label": "J'ai ajouté le filigrane et je transmets le document.",
+          "suivant": "payment_check"
+        }
+      ],
+      "liens": [
+        {
+          "label": "FiligraneFacile (outil du gouvernement pour ajouter un filigrane)",
+          "url": "https://filigrane.beta.gouv.fr/"
+        }
+      ]
+    },
+    "payment_check": {
+      "type": "question",
+      "titre": "Le site te demande-t-il d'enregistrer un moyen de paiement ?",
+      "texte": "Lors des fuites de données, il arrive que les numéros de cartes bancaires soient volés. Il est donc pertinent de ne pas les enregistrer sur le compte. Si le site propose d'enregistrer ta carte pour 'gagner du temps' lors de tes prochains achats, refuse : tu la saisiras à chaque commande. Attention aux essais gratuits : ils demandent souvent une carte et se transforment en abonnement payant si tu oublies de les résilier.",
+      "choix": [
+        {
+          "label": "Non, ou c'est facultatif. Je n'enregistre aucun moyen de paiement.",
+          "suivant": "payment_remind"
+        },
+        {
+          "label": "Oui, c'est obligatoire (abonnement, essai gratuit, ...).",
+          "suivant": "payment_card_limited"
+        }
+      ]
+    },
+    "payment_remind": {
+      "type": "question",
+      "titre": "Moyen de paiement à privilégier : carte bancaire virtuelle limitée.",
+      "texte": "Sur ce site, si tu dois passer une commande à l'avenir, n'oublie pas de privilégier un moyen de paiement qui limite au mieux les risques. Certaines banques permettent de créer des cartes bancaires virtuelles limitées dans le temps et en montant cumulé maximum (exemple : BoursoBank). Cela permet par exemple d'avoir une carte bancaire de maximum 200€ sur 1 an chez Amazon : on a alors bien enregistré une carte bancaire dans le compte comme exigé mais en limitant les risques en cas de vol de données. Conseil : évite l'IBAN quand le site propose le choix, car il est plus difficile à protéger et à faire annuler qu'une carte.",
+      "choix": [
+        {
+          "label": "Ok, je vais m'en souvenir.",
+          "suivant": "account_list"
+        }
+      ]
+    },
+    "payment_card_limited": {
+      "type": "question",
+      "titre": "J'enregistre une carte bancaire virtuelle limitée.",
+      "texte": "Certaines banques permettent de créer des cartes bancaires virtuelles limitées dans le temps et en montant cumulé maximum (exemple : BoursoBank). Cela permet par exemple d'avoir une carte bancaire de maximum 200€ sur 1 an chez Amazon : on a alors bien enregistré une carte bancaire dans le compte comme exigé mais en limitant les risques en cas de vol de données. Conseil : évite l'IBAN quand le site propose le choix, car il est plus difficile à protéger et à faire annuler qu'une carte.",
+      "choix": [
+        {
+          "label": "Je crée une carte bancaire virtuelle limitée pour ce compte et je l'enregistre comme seul moyen de paiement.",
+          "suivant": "account_list"
+        },
+        {
+          "label": "Ma banque ne me permet pas de créer de carte bancaire virtuelle. Je suis obligé d'enregistrer ma carte bancaire habituelle.",
+          "suivant": "account_list"
+        }
+      ]
+    },
+    "account_list": {
+      "type": "question",
+      "titre": "Je note ce compte dans ma liste de comptes.",
+      "texte": "Dans quelques années, tu auras peut-être oublié ce compte. Pour pouvoir le supprimer le jour où tu n'en auras plus besoin, garde une trace de ton inscription : le nom du site, l'adresse email (alias) utilisée et la date de création. Tu peux les noter dans ton gestionnaire de mots de passe ou dans un carnet. Cette liste te servira à parcourir tes comptes et à supprimer ceux devenus inutiles.",
+      "choix": [
+        {
+          "label": "J'ai noté le site, l'adresse email utilisée et la date de création.",
+          "suivant": "check_after_create"
+        }
+      ]
+    },
+    "check_after_create":{
+      "type": "question",
+      "titre": "Je change les configurations après création du compte.",
+      "texte": "Les comptes sont créés avec des configurations par défaut qui ne sont souvent pas les plus sympas pour l'utilisateur (pub par email, entrainement IA, etc). Maintenant que le compte est créé, il faut activer/désactiver certaines choses.",
+      "choix": [
+        {
+          "label": "Ok, je vais dans mon espace compte utilisateur/client du site pour voir ces différentes options.",
+          "suivant": "mfa_check"
+        }
+      ]
+    },
+    "mfa_check": {
+      "type": "question",
+      "titre": "Est-ce que la double authentification est disponible sur ce compte ?",
+      "texte": "La plupart des sites mettent à disposition la double authentification (ou authentification multifacteur, ou 2FA ou MFA) pour se connecter avec un mot de passe et un code valable seulement 30s/5min. La double authentification permet d'empêcher quelqu'un qui aurait ton mot de passe (via un vol de données) de se connecter à ta place, car il lui manquera le deuxième code. Elle se trouve en général dans les paramètres de sécurité du compte, et parfois directement proposée à la fin de l'inscription.",
+      "choix": [
+        {
+          "label": "Non, le site ne propose pas la double authentification.",
+          "suivant": "privacy_settings"
+        },
+        {
+          "label": "Oui, le site la propose.",
+          "suivant": "mfa_enable"
+        }
+      ]
+    },
+    "mfa_enable": {
+      "type": "question",
+      "titre": "J'active la double authentification par code généré sur une application sur smartphone.",
+      "texte": "Il existe différents moyens de transmettre le deuxième code d'authentification (email, sms, appel téléphonique, code généré par une application sur smartphone, ...). Le moyen le plus sûr est l'application sur smartphone qui génère un nouveau code toutes les 30s. Cependant cette option n'est pas mise en place sur tous les sites. Conseil : utiliser une application bien réputée (voir les liens ci-dessous)",
+      "choix": [
+        {
+          "label": "Le site ne propose pas la double authentification par application sur smartphone. Mais j'active quand même la double authentification via le moyen proposé par le site.",
+          "suivant": "privacy_settings"
+        },
+        {
+          "label": "J'active la double authentification par application sur smartphone.",
+          "suivant": "recovery_codes"
+        }
+      ],
+      "liens": [
+        {
+          "label": "Proton Authenticator (de préférence)",
+          "url": "https://play.google.com/store/apps/details?id=proton.android.authenticator"
+        },
+        {
+          "label": "Google Authenticator",
+          "url": "https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2"
+        }
+      ]
+    },
+    "recovery_codes": {
+      "type": "question",
+      "titre": "Je conserve les codes de secours de la double authentification.",
+      "texte": "Au moment d'activer la double authentification, beaucoup de sites te donnent une liste de 'codes de secours'. Ils te permettront de te reconnecter si tu perds ou changes de smartphone. Sans eux, tu risques de perdre définitivement l'accès à ton compte. Conseil : enregistre-les avec le mot de passe de ce compte (dans ton gestionnaire de mots de passe) ou imprime-les et range-les en lieu sûr. Ne les laisse pas dans ton dossier 'Téléchargements' ou dans une photo.",
+      "choix": [
+        {
+          "label": "J'ai conservé les codes de secours.",
+          "suivant": "privacy_settings"
+        },
+        {
+          "label": "Le site ne m'a pas donné de codes de secours.",
+          "suivant": "privacy_settings"
+        }
+      ]
+    },
+    "privacy_settings": {
+      "type": "question",
+      "titre": "Je refuse les options de marketing et je règle la confidentialité.",
+      "texte": "À la création d'un compte, les sites ont souvent des cases pré-cochées pour recevoir des newsletters, des offres de leurs 'partenaires', pour partager tes données, pour entrainer leurs IA... Décoche tout ce qui n'est pas indispensable au fonctionnement du service ou que tu ne souhaites pas. Si le site a un profil visible par d'autres utilisateurs (réseau social, forum, site de vente entre particuliers, ...), vérifie dans les paramètres de confidentialité que ton profil n'est pas public par défaut.",
+      "choix": [
+        {
+          "label": "J'ai décoché les options de marketing/partage et réglé la confidentialité.",
+          "suivant": "hibp_register"
+        }
+      ]
+    },
+    "hibp_register": {
+      "type": "question",
+      "titre": "Etre averti si mon adresse email fait partie d'une fuite de données.",
+      "texte": "Lors de fuite de données, certains bons acteurs regroupent les données volées pour avertir les personnes concernées. Mais pour être averti, il faut inscrire son adresse email (uniquement). Si cette adresse fait partie d'un vol de données qu'ils analysent, tu recevras un mail pour t'avertir. Inscris l'adresse exacte utilisée sur ce compte (avec l'alias). Après inscription sur le site, il faut activer l'inscription via le lien reçu par email de la part de \"Have I Been Pwned\".",
+      "choix": [
+        {
+          "label": "J'ai inscrit l'adresse email de ce compte utilisateur sur haveibeenpwned et activé l'inscription.",
+          "suivant": "c_created"
+        }
+      ],
+      "liens": [
+        {
+          "label": "Have I Been Pwned",
+          "url": "https://haveibeenpwned.com/"
+        }
+      ]
+    },
+    "c_created": {
+      "type": "conclusion",
+      "titre": "Compte créé et sécurisé",
+      "texte": "Bravo, ce compte utilisateur est créé avec un minimum de données personnelles et sécurisé au mieux. Pense à vérifier ta boîte email pour valider ton inscription si le site te demande de confirmer ton adresse."
+    },
+    "c_no_account": {
+      "type": "conclusion",
+      "titre": "Pas de compte, pas de risque",
+      "texte": "Bravo, le meilleur compte à protéger est celui que l'on ne crée pas. Utilise le mode invité du site pour ta commande ou ton service ponctuel."
+    },
+    "c_renounce": {
+      "type": "conclusion",
+      "titre": "J'abandonne cette inscription",
+      "texte": "Bravo, renoncer à un service qui demande trop de données ou impose un compte tiers est un bon réflexe pour protéger tes données personnelles. Si besoin, cherche un service équivalent qui respecte mieux ta vie privée."
+    },
+    "c_need_advice": {
+      "type": "conclusion",
+      "titre": "J'ai besoin d'aide.",
+      "texte": "Contacte une personne de confiance et un peu calée en informatique pour t'aider à identifier les informations qu'il te manque."
+    },
+    "c_u_next_time": {
+      "type": "conclusion",
+      "titre": "A bientôt",
+      "texte": "Pense à revenir lorsque tu auras le temps de créer ton compte pour mieux gérer tes données personnelles qui traînent sur internet."
+    }
+  }
+}

@@ -391,11 +391,11 @@
       "choix": [
         {
           "label": "Le site ne propose pas la double authentification par application sur smartphone. Mais j'active quand même la double authentification via le moyen proposé par le site.",
-          "suivant": "hibp_register"
+          "suivant": "privacy_settings"
         },
         {
           "label": "J'active la double authentification par application sur smartphone.",
-          "suivant": "hibp_register"
+          "suivant": "recovery_codes"
         }
       ],
       "liens": [
@@ -406,6 +406,32 @@
         {
           "label": "Google Authenticator",
           "url": "https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2"
+        }
+      ]
+    },
+    "recovery_codes": {
+      "type": "question",
+      "titre": "Je conserve les codes de secours de la double authentification.",
+      "texte": "Au moment d'activer la double authentification, beaucoup de sites te donnent une liste de 'codes de secours'. Ils te permettront de te reconnecter si tu perds ou changes de smartphone. Sans eux, tu risques de perdre définitivement l'accès à ton compte. Conseil : enregistre-les avec le mot de passe de ce compte (dans ton gestionnaire de mots de passe) ou imprime-les et range-les en lieu sûr. Ne les laisse pas dans ton dossier 'Téléchargements' ou dans une photo.",
+      "choix": [
+        {
+          "label": "J'ai conservé les codes de secours.",
+          "suivant": "privacy_settings"
+        },
+        {
+          "label": "Le site ne m'a pas donné de codes de secours.",
+          "suivant": "privacy_settings"
+        }
+      ]
+    },
+    "privacy_settings": {
+      "type": "question",
+      "titre": "Je refuse les options de marketing et je règle la confidentialité.",
+      "texte": "À la création d'un compte, les sites ont souvent des cases pré-cochées pour recevoir des newsletters, des offres de leurs 'partenaires', pour partager tes données, pour entrainer leurs IA... Décoche tout ce qui n'est pas indispensable au fonctionnement du service ou que tu ne souhaites pas. Si le site a un profil visible par d'autres utilisateurs (réseau social, forum, site de vente entre particuliers, ...), vérifie dans les paramètres de confidentialité que ton profil n'est pas public par défaut.",
+      "choix": [
+        {
+          "label": "J'ai décoché les options de marketing/partage et réglé la confidentialité.",
+          "suivant": "hibp_register"
         }
       ]
     },

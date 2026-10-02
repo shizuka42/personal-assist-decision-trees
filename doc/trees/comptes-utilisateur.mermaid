@@ -27,6 +27,8 @@ flowchart TD
     payment_card_limited["Carte virtuelle limitée"]
     mfa_check["Double authentification dispo ?"]
     mfa_enable["Activer la 2FA par appli"]
+    recovery_codes["Conserver les codes de secours"]
+    privacy_settings["Régler marketing et confidentialité"]
     hibp_register["Inscrire l'email sur HIBP"]
     account_get_infos["Récupérer infos du compte"]
     account_did_mfa["2FA par appli activée ?"]
@@ -91,8 +93,11 @@ flowchart TD
     mfa_check -->|"Non disponible"| hibp_register
     mfa_check -->|"Déjà activée"| mfa_enable
     mfa_check -->|"Dispo, pas activée"| mfa_enable
-    mfa_enable -->|"Pas d'appli, autre méthode"| hibp_register
-    mfa_enable -->|"Activée par appli"| hibp_register
+    mfa_enable -->|"Pas d'appli, autre méthode"| privacy_settings
+    mfa_enable -->|"Activée par appli"| recovery_codes
+    recovery_codes -->|"Codes conservés"| privacy_settings
+    recovery_codes -->|"Aucun code fourni"| privacy_settings
+    privacy_settings -->|"Options réglées"| hibp_register
     hibp_register -->|"Email inscrit"| c_secured
     account_get_infos -->|"Infos récupérées"| account_did_mfa
     account_did_mfa -->|"2FA par appli"| account_delete_from_ui
@@ -112,7 +117,7 @@ flowchart TD
     classDef question fill:#eef2ff,stroke:#6366f1,color:#1e1b4b
     classDef ok fill:#dcfce7,stroke:#16a34a,color:#14532d
     classDef help fill:#fef3c7,stroke:#d97706,color:#78350f
-    class intro,start,account_new_password,account_need,type_compte,abonnement_need,service_need,ecommerce_need,ecommerce_current_order,ecommerce_sav,ecommerce_loyalty,email_check,email_update,password_check,password_complex,password_since,password_update,payment_check,payment_set_card,payment_clear_cards,payment_card_limited,mfa_check,mfa_enable,hibp_register,account_get_infos,account_did_mfa,account_delete_from_ui,account_find_info_without_access,account_without_access_did_mfa,delete_rgpd_find_dpo,delete_rgpd_email question
+    class intro,start,account_new_password,account_need,type_compte,abonnement_need,service_need,ecommerce_need,ecommerce_current_order,ecommerce_sav,ecommerce_loyalty,email_check,email_update,password_check,password_complex,password_since,password_update,payment_check,payment_set_card,payment_clear_cards,payment_card_limited,mfa_check,mfa_enable,recovery_codes,privacy_settings,hibp_register,account_get_infos,account_did_mfa,account_delete_from_ui,account_find_info_without_access,account_without_access_did_mfa,delete_rgpd_find_dpo,delete_rgpd_email question
     class c_secured ok
     class c_need_advice help
     class c_deleted ok
